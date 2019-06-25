@@ -88,29 +88,39 @@
           <mat-error *ngIf="form.get('InvoiceTerms').invalid">Please Enter invoice terms.</mat-error>
         </mat-form-field>
 
-        <div fxLayout.gt-xs='row' fxLayoutGap='10px'>
-          <mat-form-field>
-            <input placeholder="Enter item number."  type="text" matInput formControlName="ItemNumber" [(ngModel)]='itemNumber'>
-            <mat-error *ngIf="form.get('ItemNumber').invalid">Please Enter item number.</mat-error>
-          </mat-form-field>
-          <mat-form-field>
-            <input placeholder="Enter item name."  type="text" matInput formControlName="ItemName" [(ngModel)]='itemName'>
-            <mat-error *ngIf="form.get('ItemName').invalid">Please Enter item name.</mat-error>
-          </mat-form-field>
-          <mat-form-field>
-            <input placeholder="Enter item Quantity"  type="text" matInput formControlName="ItemQty" [(ngModel)]='itemQty'>
-            <mat-error *ngIf="form.get('ItemQty').invalid">Please Enter item quantity.</mat-error>
-          </mat-form-field>
-          <mat-form-field>
-            <input placeholder="Enter item Rate"  type="text" matInput formControlName="ItemRate" [(ngModel)]='itemRate'>
-            <mat-error *ngIf="form.get('ItemRate').invalid">Please Enter item Rate.</mat-error>
-          </mat-form-field>
-          <input type="button" value="">
+        <div fxLayoutGap='10px'>
+          <div fxLayout.gt-xs='row' fxLayoutGap='10px'>
+            <mat-form-field>
+              <input placeholder="Enter item number."  type="text" matInput formControlName="ItemNumber" [(ngModel)]='itemNumber'>
+              <mat-error *ngIf="form.get('ItemNumber').invalid">Please Enter item number.</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <input placeholder="Enter item name."  type="text" matInput formControlName="ItemName" [(ngModel)]='itemName'>
+              <mat-error *ngIf="form.get('ItemName').invalid">Please Enter item name.</mat-error>
+            </mat-form-field>
+          </div>
+          <div fxLayout.gt-xs='row' fxLayoutGap='10px'>
+            <mat-form-field>
+              <input placeholder="Enter item Quantity"  type="text" matInput formControlName="ItemQty" [(ngModel)]='itemQty'>
+              <mat-error *ngIf="form.get('ItemQty').invalid">Please Enter item quantity.</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <input placeholder="Enter item Rate"  type="text" matInput formControlName="ItemRate" [(ngModel)]='itemRate'>
+              <mat-error *ngIf="form.get('ItemRate').invalid">Please Enter item Rate.</mat-error>
+            </mat-form-field>
+          </div>
+          <div fxLayout.gt-xs='row' fxLayoutGap='10px'>
+            <button type="button" mat-raised-button (click)="addItem(form.get('ItemNumber').value, form.get('ItemName').value, form.get('ItemQty').value, form.get('ItemRate').value)">Add</button>
+          </div>
         </div>
         <mat-form-field>
-          <input placeholder="Enter GST Value"  type="text" matInput formControlName="ItemGSTValue" [(ngModel)]='itemGstValue'>
+          <input placeholder="Enter GST Value"  type="text" matInput formControlName="ItemGSTValue" [(ngModel)]='itemGstValue' (change)="calculateGST(form.get('ItemGSTValue').value)">
           <mat-error *ngIf="form.get('ItemGSTValue').invalid">Please Enter item Rate.</mat-error>
         </mat-form-field>
+        <mat-form-field>
+          <textarea matInput placeholder="Enter Notes Here" rows="5" cols="50" formControlName="InvoiceNotes" [(ngModel)]='invoiceNotes'></textarea>
+          <mat-error *ngIf="form.get('InvoiceNotes').invalid">Invoice Notes are required.</mat-error>
+      </mat-form-field>
         <button mat-raised-button color='accent' type='submit'>Send</button>
       </form>
     </div>
@@ -157,8 +167,8 @@
                 <td>{{item.itemNumber}}</td>
                 <td>{{item.itemName}}</td>
                 <td>{{item.itemQty}}</td>
-                <td>{{item.itemRate.toFixed(2)}}</td>
-                <td>{{item.itemCost.toFixed(2)}}</td>
+                <td>{{item.itemRate}}</td>
+                <td>{{item.itemCost}}</td>
               </tr>
             </table>
         </div>
@@ -185,7 +195,7 @@
         </div>
         <div fxLayout='column' fxFlexAlign='start'>
           Notes :
-          <span> {{ billNotes }}</span>
+          <span style="white-space: pre"> {{ invoiceNotes}}</span>
         </div>
 
         <br><br><br><br>

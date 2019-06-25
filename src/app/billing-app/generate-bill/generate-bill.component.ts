@@ -38,7 +38,7 @@ export class GenerateBillComponent implements OnInit {
   itemCGST: number;
   itemSGST: number;
   itemTotalCost: number;
-  billNotes : string;
+  invoiceNotes : string;
   form : FormGroup;
 
   constructor() { }
@@ -68,7 +68,8 @@ export class GenerateBillComponent implements OnInit {
         'ItemName': new FormControl(''),
         'ItemQty': new FormControl(''),
         'ItemRate': new FormControl(''),
-        'ItemGSTValue': new FormControl('')
+        'ItemGSTValue': new FormControl(''),
+        'InvoiceNotes': new FormControl('')
     });
 
     this.invoiceNumber = 'INV-0004';
@@ -90,20 +91,24 @@ export class GenerateBillComponent implements OnInit {
     this.toCompanyGSTN = 'GSTIN ​27AAHCM7581Q1ZI';
     this.invoiceDate = new Date();
     this.invoiceTerms = 'Terms';
-    this.addItem(1, 'WebApp', 1, 18000.50);
-    this.addItem(2, 'WebApp Social Media', 3, 8000);
+    this.addItem(1, 'WebApp', 1, 18000);
+    //this.addItem(2, 'WebApp Social Media', 3, 8000);
     this.calculatSubTotalCost();
     this.itemGstValue = 18;
-    this.calculateGST();
+    this.calculateGST(this.itemGstValue);
     this.calculateItemTotalCost();
-    this.billNotes = 'Notes Added here';
+    this.invoiceNotes = 'Notes Added here';
   }
 
   addItem(itemNumber, itemName, itemQty, itemRate) {
     this.itemCost = itemQty * itemRate;
     var item = {itemNumber : itemNumber, itemName: itemName, itemQty: itemQty, itemRate: itemRate, itemCost: this.itemCost };
     this.itemList.push(item);
-    console.log(this.itemList);
+    this.form.get('ItemNumber').setValue(null);
+    this.form.get('ItemName').setValue(null);
+    this.form.get('ItemQty').setValue(null);
+    this.form.get('ItemRate').setValue(null);
+    this.calculatSubTotalCost();
   }
 
   calculatSubTotalCost() {
@@ -114,13 +119,16 @@ export class GenerateBillComponent implements OnInit {
     this.itemSubTotalCost = elementAdd;
   }
 
-  calculateGST() {
-    var halfGSTValue = this.itemGstValue / 2;
+  calculateGST(itemGstValue) {
+    console.log(itemGstValue);
+    var halfGSTValue = itemGstValue / 2;
     console.log(halfGSTValue);
     var calulateGSTPart1 = (this.itemSubTotalCost * halfGSTValue);
     console.log(calulateGSTPart1);
+    console.log(calulateGSTPart1);
     this.itemCGST = calulateGSTPart1 / 100;
     this.itemSGST = calulateGSTPart1 / 100;
+    this.calculateItemTotalCost();
   }
 
   calculateItemTotalCost() {
