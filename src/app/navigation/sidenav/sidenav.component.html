@@ -11,13 +11,9 @@
       <mat-icon>face</mat-icon>
       <span class='nav-caption'>Signup</span>
     </a>
-    <a mat-list-item routerLink='/admin' *ngIf='userIsAuthenticated' (click)='onClose()'>
+    <a mat-list-item routerLink='/createBill' *ngIf='userIsAuthenticated' (click)='onClose()'>
       <mat-icon>verified_user</mat-icon>
-      <span class='nav-caption'>Admin</span>
-    </a>
-    <a mat-list-item routerLink='/client' *ngIf='userIsAuthenticated' (click)='onClose()'>
-      <mat-icon>account_box</mat-icon>
-      <span class='nav-caption'>Client</span>
+      <span class='nav-caption'>Create Bill</span>
     </a>
     <a mat-list-item routerLink='/changePassword' *ngIf='userIsAuthenticated' (click)='onClose()'>
       <mat-icon>autorenew</mat-icon>

@@ -1,0 +1,194 @@
+<section>
+  <div fxLayout="column" fxLayout.gt-xs='row'>
+    <div class='InputFieldForm' fxLayout='column' fxFlex="40">
+      <form [formGroup]='form' (submit)='generateBill()' fxLayout='column' fxLayoutGap='10px' fxLayoutAlign='center start'>
+          <mat-form-field >
+              <input placeholder="Enter invoice number"  type="text" matInput formControlName="InvoiceNumber" [(ngModel)]='invoiceNumber'>
+              <mat-error *ngIf="form.get('InvoiceNumber').invalid">Please Enter invoice Number.</mat-error>
+          </mat-form-field>
+        <mat-form-field style="width: 80%">
+            <input placeholder="Enter Company Name"  type="text" matInput formControlName="CompanyName" [(ngModel)]='companyName'>
+            <mat-error *ngIf="form.get('CompanyName').invalid">Please Enter invoice Number.</mat-error>
+        </mat-form-field>
+        <mat-form-field style="width: 80%">
+            <input placeholder="Enter Company Address 1"  type="text" matInput formControlName="CompanyAddressInitial" [(ngModel)]='companyAddressInitial'>
+            <mat-error *ngIf="form.get('CompanyAddressInitial').invalid">Please Enter Company Address.</mat-error>
+        </mat-form-field>
+        <mat-form-field style="width: 80%">
+            <input placeholder="Enter Company Address 2"  type="text" matInput formControlName="CompanyAddressPart2" [(ngModel)]='companyAddressPart2'>
+            <mat-error *ngIf="form.get('CompanyAddressPart2').invalid">Please Enter Company Address.</mat-error>
+        </mat-form-field>
+        <div fxLayout.gt-xs='row' fxLayoutGap='10px'>
+            <mat-form-field style="width: 80%">
+                <input placeholder="Enter Company City"  type="text" matInput formControlName="CompanyCity" [(ngModel)]='companyCity'>
+                <mat-error *ngIf="form.get('CompanyCity').invalid">Please Enter Company City.</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <input placeholder="Enter Company Pincode"  type="text" matInput formControlName="CompanyPincode" [(ngModel)]='companyPincode'>
+                <mat-error *ngIf="form.get('CompanyPincode').invalid">Please Enter Company City.</mat-error>
+            </mat-form-field>
+        </div>
+        <div fxLayout.gt-xs='row' fxLayoutGap='10px'>
+            <mat-form-field style="width: 80%">
+                <input placeholder="Enter Company State"  type="text" matInput formControlName="CompanyState" [(ngModel)]='compnayState'>
+                <mat-error *ngIf="form.get('CompanyState').invalid">Please Enter Company City.</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <input placeholder="Enter Company Country"  type="text" matInput formControlName="CompanyCountry" [(ngModel)]='companyCountry'>
+                <mat-error *ngIf="form.get('CompanyCountry').invalid">Please Enter Company Country.</mat-error>
+            </mat-form-field>
+        </div>
+        <mat-form-field>
+            <input placeholder="Enter Company GSTN"  type="text" matInput formControlName="CompanyGSTN" [(ngModel)]='companyGSTN'>
+            <mat-error *ngIf="form.get('CompanyGSTN').invalid">Please Enter Company GSTN.</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <input placeholder="Enter To Company Name"  type="text" matInput formControlName="ToCompanyName" [(ngModel)]='toCompanyName'>
+            <mat-error *ngIf="form.get('ToCompanyName').invalid">Please Enter To Company name.</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <input placeholder="Enter To Company Address 1"  type="text" matInput formControlName="ToCompanyAddressInitial" [(ngModel)]='toCompanyAddressInitial'>
+            <mat-error *ngIf="form.get('ToCompanyAddressInitial').invalid">Please Enter To Company Address.</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <input placeholder="Enter To Company Address 2"  type="text" matInput formControlName="ToCompanyAddressPart2" [(ngModel)]='toCompanyAddressPart2'>
+            <mat-error *ngIf="form.get('ToCompanyAddressPart2').invalid">Please Enter Company Address.</mat-error>
+        </mat-form-field>
+        <div fxLayout.gt-xs='row' fxLayoutGap='10px'>
+          <mat-form-field>
+              <input placeholder="Enter To Company City"  type="text" matInput formControlName="ToCompanyCity" [(ngModel)]='toCompanyCity'>
+              <mat-error *ngIf="form.get('ToCompanyCity').invalid">Please Enter Company City.</mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <input placeholder="Enter To Company Pincode"  type="text" matInput formControlName="ToCompanyPincode" [(ngModel)]='toCompanyPincode'>
+            <mat-error *ngIf="form.get('ToCompanyPincode').invalid">Please Enter Company City.</mat-error>
+          </mat-form-field>
+        </div>
+        <div fxLayout.gt-xs='row' fxLayoutGap='10px'>
+          <mat-form-field>
+              <input placeholder="Enter To Company State"  type="text" matInput formControlName="ToCompanyState" [(ngModel)]='toCompnayState'>
+              <mat-error *ngIf="form.get('ToCompanyState').invalid">Please Enter Company State.</mat-error>
+          </mat-form-field>
+          <mat-form-field>
+              <input placeholder="Enter To Company Country"  type="text" matInput formControlName="ToCompanyCountry" [(ngModel)]='toCompanyCountry'>
+              <mat-error *ngIf="form.get('ToCompanyCountry').invalid">Please Enter Company Country.</mat-error>
+          </mat-form-field>
+        </div>
+        <mat-form-field>
+            <input placeholder="Enter To Company GSTN"  type="text" matInput formControlName="ToCompanyGSTN" [(ngModel)]='toCompanyGSTN'>
+            <mat-error *ngIf="form.get('ToCompanyGSTN').invalid">Please Enter Company City.</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput [matDatepicker]="picker" placeholder="Choose a Bill Date" [(ngModel)]='invoiceDate' formControlName='InvoiceDate' required>
+          <mat-datepicker-toggle matSuffix  [for]='picker'></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field>
+          <input placeholder="Enter invoice terms"  type="text" matInput formControlName="InvoiceTerms" [(ngModel)]='invoiceTerms'>
+          <mat-error *ngIf="form.get('InvoiceTerms').invalid">Please Enter invoice terms.</mat-error>
+        </mat-form-field>
+
+        <div fxLayout.gt-xs='row' fxLayoutGap='10px'>
+          <mat-form-field>
+            <input placeholder="Enter item number."  type="text" matInput formControlName="ItemNumber" [(ngModel)]='itemNumber'>
+            <mat-error *ngIf="form.get('ItemNumber').invalid">Please Enter item number.</mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <input placeholder="Enter item name."  type="text" matInput formControlName="ItemName" [(ngModel)]='itemName'>
+            <mat-error *ngIf="form.get('ItemName').invalid">Please Enter item name.</mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <input placeholder="Enter item Quantity"  type="text" matInput formControlName="ItemQty" [(ngModel)]='itemQty'>
+            <mat-error *ngIf="form.get('ItemQty').invalid">Please Enter item quantity.</mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <input placeholder="Enter item Rate"  type="text" matInput formControlName="ItemRate" [(ngModel)]='itemRate'>
+            <mat-error *ngIf="form.get('ItemRate').invalid">Please Enter item Rate.</mat-error>
+          </mat-form-field>
+          <input type="button" value="">
+        </div>
+        <mat-form-field>
+          <input placeholder="Enter GST Value"  type="text" matInput formControlName="ItemGSTValue" [(ngModel)]='itemGstValue'>
+          <mat-error *ngIf="form.get('ItemGSTValue').invalid">Please Enter item Rate.</mat-error>
+        </mat-form-field>
+        <button mat-raised-button color='accent' type='submit'>Send</button>
+      </form>
+    </div>
+    <div class='displayBillGenerated' fxLayout='column' fxFlex="60">
+      <div fxLayout='column' fxFlexAlign='end'>
+        <span>INVOICE</span>
+        <span>Invoice # {{invoiceNumber}}</span>
+      </div>
+      <div fxLayout='column' fxFlexAlign='start'>
+        <span>{{companyName}}</span>
+        <span>{{companyAddressInitial}}</span>
+        <span>{{companyAddressPart2}}</span>
+        <span>{{companyCity}}</span>
+        <span>Pincode: {{companyPincode}}</span>
+        <span>{{compnayState}}, {{companyCountry}}</span>
+        <span>{{companyGSTN}}</span>
+      </div>
+      <br><br>
+        <div fxLayout='column' fxFlexAlign='start'>
+          <span>Bill To : </span>
+          <span>{{toCompanyName}}</span>
+          <span>{{toCompanyAddressInitial}}</span>
+          <span>{{toCompanyAddressPart2}}</span>
+          <span>{{toCompanyCity}}</span>
+          <span>Pincode: {{toCompanyPincode}}</span>
+          <span>{{toCompnayState}}, {{toCompanyCountry}}</span>
+          <span>{{toCompanyGSTN}}</span>
+        </div>
+        <div fxLayout='column' fxFlexAlign='end'>
+          <span>Invoice Date : {{invoiceDate | date}}</span>
+          <span>Terms : {{invoiceTerms}}</span>
+        </div>
+        <br><br><br>
+        <div fxLayout='column'>
+            <table border='1'>
+              <tr>
+                  <th>Item No (#)</th>
+                  <th>Item Name</th>
+                  <th>Qty</th>
+                  <th>Rate</th>
+                  <th>Amount</th>
+              </tr>
+              <tr *ngFor="let item of itemList">
+                <td>{{item.itemNumber}}</td>
+                <td>{{item.itemName}}</td>
+                <td>{{item.itemQty}}</td>
+                <td>{{item.itemRate.toFixed(2)}}</td>
+                <td>{{item.itemCost.toFixed(2)}}</td>
+              </tr>
+            </table>
+        </div>
+        <br><br>
+        <div fxLayout='column' fxFlexAlign='end'>
+          <table>
+            <tr>
+              <td>Sub Cost :</td>
+              <td><span> {{itemSubTotalCost.toFixed(2)}}</span></td>
+            </tr>
+            <tr>
+                <td>CGST({{itemGstValue/2}}%) :</td>
+                <td><span> {{itemCGST.toFixed(2)}}</span></td>
+            </tr>
+            <tr>
+                <td>SGST({{itemGstValue/2}}%) :</td>
+                <td><span> {{itemSGST.toFixed(2)}}</span></td>
+            </tr>
+            <tr>
+                <td>Total Cost :</td>
+                <td><span> {{itemTotalCost.toFixed(2)}}</span></td>
+            </tr>
+          </table>
+        </div>
+        <div fxLayout='column' fxFlexAlign='start'>
+          Notes :
+          <span> {{ billNotes }}</span>
+        </div>
+
+        <br><br><br><br>
+    </div>
+  </div>
+</section>

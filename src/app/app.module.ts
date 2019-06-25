@@ -9,15 +9,14 @@ import { MaterialModule } from './material.module';
 import { LoginComponent } from './Auth/login/login.component';
 import { SignupComponent } from './Auth/signup/signup.component';
 import { AppStartComponent } from './app-start/app-start.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HeaderComponent } from './navigation/header/header.component';
 import { SidenavComponent } from './navigation/sidenav/sidenav.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AdminComponent } from './roles/admin/admin.component';
-import { ClientComponent } from './roles/client/client.component';
 import { AuthInterceptor } from './Auth/auth-interceptor';
 import { ForgotPasswordComponent } from './Auth/forgot-password/forgot-password.component';
 import { ChangePasswordComponent } from './Auth/change-password/change-password.component';
+import { GenerateBillComponent } from './billing-app/generate-bill/generate-bill.component';
 
 @NgModule({
   declarations: [
@@ -27,10 +26,9 @@ import { ChangePasswordComponent } from './Auth/change-password/change-password.
     AppStartComponent,
     HeaderComponent,
     SidenavComponent,
-    AdminComponent,
-    ClientComponent,
     ForgotPasswordComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    GenerateBillComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +37,8 @@ import { ChangePasswordComponent } from './Auth/change-password/change-password.
     MaterialModule,
     FlexLayoutModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
   bootstrap: [AppComponent],

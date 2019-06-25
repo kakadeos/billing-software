@@ -4,8 +4,6 @@ const mongoose = require('mongoose');
 const app = express();
 
 const userRoutes = require('./routes/user');
-const rolesRoutes = require('./routes/roles');
-
 mongoose.set('useCreateIndex', true);
 mongoose.connect('mongodb+srv://omkar:GeqXTBndRVUKt6Dd@cluster0-26epp.mongodb.net/test', { useNewUrlParser: true }).then(
   result=> {console.log('MongoDb connect Successfully')}
@@ -25,6 +23,5 @@ app.use((req,res,next)=>{
 });
 
 app.use('/api/user', userRoutes);
-app.use('/api/roles/', rolesRoutes);
 
 module.exports = app;
