@@ -1,7 +1,22 @@
-.displayBillGenerated {
+.InvoiceGenerationForm {
+  padding-left: 1%;
+  padding-right: 1%;
+  padding-top: 1%;
+}
+
+
+.displayInvoiceGenerated {
   border: 1px red solid;
   padding-left: 3%;
   padding-right: 3%;
   padding-top: 2%;
   padding-bottom: 2%;
+}
+
+.invoiceHeader {
+  background-color: red;
+}
+
+table {
+  text-align: center;
 }
