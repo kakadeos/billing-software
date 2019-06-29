@@ -6,17 +6,43 @@
 
 
 .displayInvoiceGenerated {
-  border: 1px red solid;
-  padding-left: 3%;
-  padding-right: 3%;
+  border: 1px white solid;
+  padding-left: 1.5%;
+  padding-right: 1.5%;
   padding-top: 2%;
-  padding-bottom: 2%;
-}
-
-.invoiceHeader {
-  background-color: red;
+  padding-bottom: 1.5%;
 }
 
 table {
   text-align: center;
+}
+
+.invoiceHeader {
+  background-color: blue;
+  border-top-left-radius: 25px;
+  padding-bottom: 1%;
+  padding-top: 1%;
+  padding-left: 1%;
+  padding-right: 1%;
+}
+
+.invoicePreview {
+  border-left: 1px black solid;
+  border-right: 1px black solid;
+  padding-left: 0.5%;
+  padding-right: 0.5%;
+  padding-top: 1%;
+  padding-bottom: 1%;
+}
+
+.invoiceTitle {
+  font-size: 36px;
+  font-weight: bold;
+}
+
+.invoiceFooter {
+  background-color: blue;
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
+  padding: 3%;
 }

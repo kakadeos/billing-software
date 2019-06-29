@@ -42,6 +42,7 @@ export class GenerateBillComponent implements OnInit {
   itemTotalCost: number;
   invoiceNotes : string;
   form : FormGroup;
+  footerYear : number;
 
   constructor() { }
 
@@ -94,7 +95,7 @@ export class GenerateBillComponent implements OnInit {
     this.invoiceDate = new Date();
     this.invoiceTerms = 'Terms';
     this.addItem(1, 'WebApp', 1, 18000);
-    //this.addItem(2, 'WebApp Social Media', 3, 8000);
+    this.addItem(2, 'WebApp Social Media', 3, 8000);
     this.calculatSubTotalCost();
     this.itemGstValue = 18;
     this.itemCGSTValue = this.itemGstValue / 2;
@@ -102,6 +103,7 @@ export class GenerateBillComponent implements OnInit {
     this.calculateGST(this.itemGstValue);
     this.calculateItemTotalCost();
     this.invoiceNotes = 'Notes Added here';
+    this.footerYear = new Date().getFullYear();
   }
 
   addItem(itemNumber, itemName, itemQty, itemRate) {

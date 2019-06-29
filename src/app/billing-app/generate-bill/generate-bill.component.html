@@ -266,81 +266,89 @@
       </mat-accordion>
     </div>
     <div class='displayInvoiceGenerated' fxLayout='column' fxFlex="60">
-        <div fxLayout='column' fxFlexAlign='end'>
-          <span><h1>INVOICE</h1></span>
-          <span>Invoice # {{invoiceNumber}}</span>
-        </div>
-      <div fxLayout='column' fxFlexAlign='start'>
-        <span>Bill From : </span>
-        <span>{{companyName}}</span>
-        <span>{{companyAddressInitial}}</span>
-        <span>{{companyAddressPart2}}</span>
-        <span>{{companyCity}}</span>
-        <span>Pincode: {{companyPincode}}</span>
-        <span>{{compnayState}}, {{companyCountry}}</span>
-        <span>{{companyGSTN}}</span>
-      </div>
-      <br><br>
-        <div fxLayout='column' fxFlexAlign='start'>
-          <span>Bill To : </span>
-          <span>{{toCompanyName}}</span>
-          <span>{{toCompanyAddressInitial}}</span>
-          <span>{{toCompanyAddressPart2}}</span>
-          <span>{{toCompanyCity}}</span>
-          <span>Pincode: {{toCompanyPincode}}</span>
-          <span>{{toCompnayState}}, {{toCompanyCountry}}</span>
-          <span>{{toCompanyGSTN}}</span>
-        </div>
-        <div fxLayout='column' fxFlexAlign='end'>
-          <span>Invoice Date : {{invoiceDate | date}}</span>
-          <span style="white-space: pre">Terms : {{invoiceTerms}}</span>
-        </div>
-        <br><br><br>
-        <div fxLayout='column'>
-            <table border='1'>
-              <tr>
-                  <th>Item No (#)</th>
-                  <th>Item Name</th>
-                  <th>Qty</th>
-                  <th>Rate</th>
-                  <th>Amount</th>
-              </tr>
-              <tr *ngFor="let item of itemList">
-                <td>{{item.itemNumber}}</td>
-                <td>{{item.itemName}}</td>
-                <td>{{item.itemQty}}</td>
-                <td>{{item.itemRate}}</td>
-                <td>{{item.itemCost}}</td>
-              </tr>
-            </table>
-        </div>
-        <br><br>
-        <div fxLayout='column' fxFlexAlign='end'>
-          <table>
-            <tr>
-              <td>Sub Cost :</td>
-              <td><span> {{itemSubTotalCost.toFixed(2)}}</span></td>
-            </tr>
-            <tr>
-                <td>CGST({{itemCGSTValue}}%) :</td>
-                <td><span> {{itemCGST.toFixed(2)}}</span></td>
-            </tr>
-            <tr>
-                <td>SGST({{itemSGSTValue}}%) :</td>
-                <td><span> {{itemSGST.toFixed(2)}}</span></td>
-            </tr>
-            <tr>
-                <td>Total Cost :</td>
-                <td><span> {{itemTotalCost.toFixed(2)}}</span></td>
-            </tr>
-          </table>
-        </div>
-        <div fxLayout='column' fxFlexAlign='start'>
-          <span>Notes :</span>
-          <span style="white-space: pre">{{invoiceNotes}}</span>
-        </div>
+        <div class='invoiceHeader'>
+            <div fxLayoutAlign='end' fxLayout='row'>
+              <div fxLayout='column'>
+                  <span class='invoiceTitle'>INVOICE</span>
+                  <span>Invoice # {{invoiceNumber}}</span>
+              </div>
+            </div>
+          </div>
+      <div class='invoicePreview' fxLayout='column'>
+            <div fxLayout='column' fxFlexAlign='start'>
+                <span>Bill From : </span>
+                <span>{{companyName}}</span>
+                <span>{{companyAddressInitial}}</span>
+                <span>{{companyAddressPart2}}</span>
+                <span>{{companyCity}}</span>
+                <span>Pincode: {{companyPincode}}</span>
+                <span>{{compnayState}}, {{companyCountry}}</span>
+                <span>{{companyGSTN}}</span>
+              </div>
+              <br><br>
+              <div fxLayout='column' fxFlexAlign='start'>
+                  <span>Bill To : </span>
+                  <span>{{toCompanyName}}</span>
+                  <span>{{toCompanyAddressInitial}}</span>
+                  <span>{{toCompanyAddressPart2}}</span>
+                  <span>{{toCompanyCity}}</span>
+                  <span>Pincode: {{toCompanyPincode}}</span>
+                  <span>{{toCompnayState}}, {{toCompanyCountry}}</span>
+                  <span>{{toCompanyGSTN}}</span>
+                </div>
+                <div fxLayout='column' fxFlexAlign='end'>
+                  <span>Invoice Date : {{invoiceDate | date}}</span>
+                  <span style="white-space: pre">Terms : {{invoiceTerms}}</span>
+                </div>
+                <br><br><br>
+                <div fxLayout='column'>
+                    <table border='1'>
+                      <tr>
+                          <th>Item No (#)</th>
+                          <th>Item Name</th>
+                          <th>Qty</th>
+                          <th>Rate</th>
+                          <th>Amount</th>
+                      </tr>
+                      <tr *ngFor="let item of itemList">
+                        <td>{{item.itemNumber}}</td>
+                        <td>{{item.itemName}}</td>
+                        <td>{{item.itemQty}}</td>
+                        <td>{{item.itemRate}}</td>
+                        <td>{{item.itemCost}}</td>
+                      </tr>
+                    </table>
+                </div>
+                <br><br>
+                <div fxLayout='column' fxFlexAlign='end'>
+                  <table>
+                    <tr>
+                      <td>Sub Cost :</td>
+                      <td><span> {{itemSubTotalCost.toFixed(2)}}</span></td>
+                    </tr>
+                    <tr>
+                        <td>CGST({{itemCGSTValue}}%) :</td>
+                        <td><span> {{itemCGST.toFixed(2)}}</span></td>
+                    </tr>
+                    <tr>
+                        <td>SGST({{itemSGSTValue}}%) :</td>
+                        <td><span> {{itemSGST.toFixed(2)}}</span></td>
+                    </tr>
+                    <tr>
+                        <td>Total Cost :</td>
+                        <td><span> {{itemTotalCost.toFixed(2)}}</span></td>
+                    </tr>
+                  </table>
+                </div>
+                <div fxLayout='column' fxFlexAlign='start'>
+                  <span>Notes :</span>
+                  <span style="white-space: pre">{{invoiceNotes}}</span>
+                </div>
 
-        <br><br><br><br>
+      </div>
+      <div fxLayout='row' class='invoiceFooter' fxLayoutAlign='center'>
+          <span>Copyright &copy; {{footerYear}}-{{footerYear + 1}} {{companyName}}</span>
+      </div>
     </div>
   </div>
 </section>
