@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { BillingService } from '../billing.service';
 
 @Component({
   selector: 'app-generate-bill',
@@ -44,7 +45,7 @@ export class GenerateBillComponent implements OnInit {
   form : FormGroup;
   footerYear : number;
 
-  constructor() { }
+  constructor(private billingService: BillingService) { }
 
   ngOnInit() {
     this.form = new FormGroup({
@@ -140,11 +141,6 @@ export class GenerateBillComponent implements OnInit {
     this.itemTotalCost = this.itemSubTotalCost + this.itemCGST + this.itemSGST ;
   }
 
-  generateBill() {
-      console.log(this.form);
-      console.log(this.itemList);
-  }
-
   deleteItem(itemNumber) {
     for (let index = 0; index < this.itemList.length; index++) {
       const element = this.itemList[index];
@@ -155,6 +151,12 @@ export class GenerateBillComponent implements OnInit {
     this.calculatSubTotalCost();
     this.calculateGST(this.itemGstValue);
   }
+
+  generateBill() {
+    console.log(this.form.value);
+    console.log(this.itemList);
+    this.billingService.saveInvoice(this.form.value, this.itemList);
+}
 
   step = 0;
 
