@@ -6,13 +6,15 @@ import { AppStartComponent } from './app-start/app-start.component';
 import { AuthGuard } from './Auth/auth.guard';
 import { ChangePasswordComponent } from './Auth/change-password/change-password.component';
 import { GenerateBillComponent } from './billing-app/generate-bill/generate-bill.component';
+import { ViewPreviousInvoicesComponent } from './billing-app/view-previous-invoices/view-previous-invoices.component';
 
 const routes: Routes = [
   {path: '', component:AppStartComponent},
   {path: 'login', component: LoginComponent},
   {path: 'signup', component: SignupComponent},
   {path: 'changePassword', component: ChangePasswordComponent, canActivate: [AuthGuard]},
-  {path: 'createBill', component: GenerateBillComponent, canActivate: [AuthGuard]}
+  {path: 'createBill', component: GenerateBillComponent, canActivate: [AuthGuard]},
+  {path: 'viewBills', component: ViewPreviousInvoicesComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({
