@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
 import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 import { Invoice } from '../invoice.module';
 import { BillingService } from '../billing.service';
@@ -9,9 +9,10 @@ import { Subscription } from 'rxjs';
   templateUrl: './view-previous-invoices.component.html',
   styleUrls: ['./view-previous-invoices.component.css']
 })
-export class ViewPreviousInvoicesComponent implements OnInit, AfterViewInit {
+export class ViewPreviousInvoicesComponent implements OnInit, AfterViewInit, OnDestroy {
 
-  displayedColumns = ['InvoiceNumber', 'InvoiceTo', 'InvoiceFile', 'InvoiceDate'];
+  displayedColumns = ['InvoiceNumber', 'InvoiceTo', 'InvoiceFile', 'InvoiceDate',
+  'InvoicePaymentStatus'];
 
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -38,4 +39,11 @@ export class ViewPreviousInvoicesComponent implements OnInit, AfterViewInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
+  UpdatePaymentStatus(invoiceNumber) {
+    console.log(invoiceNumber);
+  }
+
+  ngOnDestroy() {
+    this.invoiceSub.unsubscribe();
+  }
 }

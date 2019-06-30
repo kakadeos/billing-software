@@ -11,14 +11,14 @@
     <!-- Div to add Spacing -->
     <br>
 </div>
-<mat-table [dataSource]='dataSource' matSort >
+<mat-table [dataSource]='dataSource' matSort>
   <ng-container matColumnDef='InvoiceNumber'>
       <mat-header-cell mat-sort-header *matHeaderCellDef >Invoice Number</mat-header-cell>
       <mat-cell *matCellDef='let element'>{{element.InvoiceNumber}}</mat-cell>
   </ng-container>
   <ng-container matColumnDef='InvoiceTo'>
       <mat-header-cell mat-sort-header *matHeaderCellDef >Invoice To</mat-header-cell>
-      <mat-cell *matCellDef='let element'>{{element.InvoiceTo}}</mat-cell>
+      <mat-cell *matCellDef='let element'>{{element.ToCompanyName}}</mat-cell>
   </ng-container>
   <ng-container matColumnDef='InvoiceFile'>
       <mat-header-cell mat-sort-header *matHeaderCellDef >Invoice File</mat-header-cell>
@@ -28,6 +28,12 @@
       <mat-header-cell mat-sort-header *matHeaderCellDef >Invoice Date</mat-header-cell>
       <mat-cell *matCellDef='let element'>{{element.InvoiceDate | date}}</mat-cell>
   </ng-container>
+  <ng-container matColumnDef='InvoicePaymentStatus'>
+    <mat-header-cell mat-sort-header *matHeaderCellDef >Payment Status</mat-header-cell>
+    <mat-cell *matCellDef='let element'>
+          {{element.InvoicePaymentStatus}}
+    </mat-cell>
+</ng-container>
   <mat-header-row *matHeaderRowDef='displayedColumns'></mat-header-row>
   <mat-row *matRowDef='let row; columns: displayedColumns;'></mat-row>
 </mat-table>

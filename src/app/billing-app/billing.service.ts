@@ -23,7 +23,7 @@ export class BillingService {
       formData: itemList1,
       itemtableData: itemList2
     }
-    this.http.post<{message:string, result: object}>('http://localhost:3000/api/invoice/storedInvoices',combineData)
+    this.http.post<{message:string, result: object}>('http://localhost:3000/api/invoice/newInvoice',combineData)
     .subscribe(response => {
         this.snackBar.open(response.message, null, {duration: 3000});
     },
@@ -39,14 +39,14 @@ export class BillingService {
   getInvoiceList() {
     this.http.get<{message: string, invoices: Invoice[]}>('http://localhost:3000/api/invoice/getInvoices')
     .pipe(map((invoiceData) => {
-      console.log('Called');
-      console.log(invoiceData);
       return invoiceData.invoices.map(invoice => {
-       return {
+      console.log(invoice);
+      return {
         InvoiceNumber: invoice.InvoiceNumber,
-        InvoiceTo: invoice.InvoiceTo,
+        ToCompanyName: invoice.ToCompanyName,
         InvoiceFile: invoice.InvoiceFile,
-        InvoiceDate: invoice.InvoiceDate
+        InvoiceDate: invoice.InvoiceDate,
+        InvoicePaymentStatus: invoice.InvoicePaymentStatus
        };
       });
     }))
@@ -61,6 +61,4 @@ export class BillingService {
   getInvoiceUpdateListener() {
     return this.invoiceUpdated.asObservable();
   }
-
-
 }

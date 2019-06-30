@@ -1,6 +1,7 @@
 export class Invoice {
   InvoiceNumber: string;
-  InvoiceTo: string;
+  ToCompanyName: string;
   InvoiceFile: string;
   InvoiceDate: Date;
+  InvoicePaymentStatus: string;
 }

@@ -15,6 +15,10 @@
       <mat-icon>verified_user</mat-icon>
       <span class='nav-caption'>Create Bill</span>
     </a>
+    <a mat-list-item routerLink='/viewBills' *ngIf='userIsAuthenticated' (click)='onClose()'>
+      <mat-icon>autorenew</mat-icon>
+      <span class='nav-caption'>View Bills</span>
+    </a>
     <a mat-list-item routerLink='/changePassword' *ngIf='userIsAuthenticated' (click)='onClose()'>
       <mat-icon>autorenew</mat-icon>
       <span class='nav-caption'>Change Password</span>
