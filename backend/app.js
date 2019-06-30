@@ -7,7 +7,7 @@ const userRoutes = require('./routes/user');
 const invoiceRoutes = require('./routes/invoice');
 
 mongoose.set('useCreateIndex', true);
-mongoose.connect('mongodb+srv://omkar:GeqXTBndRVUKt6Dd@cluster0-26epp.mongodb.net/test', { useNewUrlParser: true }).then(
+mongoose.connect('mongodb+srv://omkar:PnLpaxxqMcBzcXwx@projectbilling-2xwu9.mongodb.net/test?retryWrites=true&w=majority', { useNewUrlParser: true }).then(
   result=> {console.log('MongoDb connect Successfully')}
 ).catch(
   error => {console.log('Oops! Error occured ' + error);
