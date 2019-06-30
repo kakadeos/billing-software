@@ -22,6 +22,9 @@
           <a routerLink='/createBill'>Create Bill</a>
         </li>
         <li *ngIf='userIsAuthenticated'>
+          <a routerLink='/viewBills'>View Bill</a>
+        </li>
+        <li *ngIf='userIsAuthenticated'>
           <a routerLink='/changePassword'>Change Password</a>
         </li>
         <li *ngIf='userIsAuthenticated'>

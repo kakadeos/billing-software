@@ -1,0 +1,34 @@
+<div fxLayout='row'>
+  <!-- Div to add Spacing -->
+  <br>
+</div>
+<div fxLayoutAlign='center center'  *ngIf="dataSource.data.length > 0 && !isLoading">
+  <mat-form-field fxFlex='40%'>
+    <input matInput type="text" (keyup)='doFilter($event.target.value)' placeholder="Search for invoice">
+  </mat-form-field>
+</div>
+<div fxLayout='row'>
+    <!-- Div to add Spacing -->
+    <br>
+</div>
+<mat-table [dataSource]='dataSource' matSort >
+  <ng-container matColumnDef='InvoiceNumber'>
+      <mat-header-cell mat-sort-header *matHeaderCellDef >Invoice Number</mat-header-cell>
+      <mat-cell *matCellDef='let element'>{{element.InvoiceNumber}}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef='InvoiceTo'>
+      <mat-header-cell mat-sort-header *matHeaderCellDef >Invoice To</mat-header-cell>
+      <mat-cell *matCellDef='let element'>{{element.InvoiceTo}}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef='InvoiceFile'>
+      <mat-header-cell mat-sort-header *matHeaderCellDef >Invoice File</mat-header-cell>
+      <mat-cell *matCellDef='let element'>{{element.InvoiceFile}}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef='InvoiceDate'>
+      <mat-header-cell mat-sort-header *matHeaderCellDef >Invoice Date</mat-header-cell>
+      <mat-cell *matCellDef='let element'>{{element.InvoiceDate | date}}</mat-cell>
+  </ng-container>
+  <mat-header-row *matHeaderRowDef='displayedColumns'></mat-header-row>
+  <mat-row *matRowDef='let row; columns: displayedColumns;'></mat-row>
+</mat-table>
+<mat-paginator [pageSize]="10" [pageSizeOptions]="[1, 5, 10]"></mat-paginator>

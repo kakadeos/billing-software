@@ -17,6 +17,7 @@ import { AuthInterceptor } from './Auth/auth-interceptor';
 import { ForgotPasswordComponent } from './Auth/forgot-password/forgot-password.component';
 import { ChangePasswordComponent } from './Auth/change-password/change-password.component';
 import { GenerateBillComponent } from './billing-app/generate-bill/generate-bill.component';
+import { ViewPreviousInvoicesComponent } from './billing-app/view-previous-invoices/view-previous-invoices.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { GenerateBillComponent } from './billing-app/generate-bill/generate-bill
     SidenavComponent,
     ForgotPasswordComponent,
     ChangePasswordComponent,
-    GenerateBillComponent
+    GenerateBillComponent,
+    ViewPreviousInvoicesComponent
   ],
   imports: [
     BrowserModule,
