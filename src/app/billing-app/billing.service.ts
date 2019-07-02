@@ -40,9 +40,8 @@ export class BillingService {
     this.http.get<{message: string, invoices: Invoice[]}>('http://localhost:3000/api/invoice/getInvoices')
     .pipe(map((invoiceData) => {
       return invoiceData.invoices.map(invoice => {
-      console.log(invoice);
       return {
-        InvoiceId: invoice._id,
+        _id: invoice._id,
         InvoiceNumber: invoice.InvoiceNumber,
         ToCompanyName: invoice.ToCompanyName,
         InvoiceFile: invoice.InvoiceFile,
@@ -52,7 +51,7 @@ export class BillingService {
       });
     }))
     .subscribe((TransformedInvoices) => {
-     // console.log(TransformedInvoices);
+      console.log(TransformedInvoices);
        this.invoices = TransformedInvoices;
        this.invoiceUpdated.next([...this.invoices]);
     });
@@ -63,7 +62,7 @@ export class BillingService {
   }
 
   UpdatePaymentStatus(invoice) {
-    console.log(invoice);
+      console.log(invoice);
       const invoiceToupdate = invoice;
       var invoicePaymentStatus;
       if(invoice.InvoicePaymentStatus === 'PAID') {
@@ -73,12 +72,12 @@ export class BillingService {
       }
       console.log(invoicePaymentStatus);
       const paymentStatus = {invoicePaymentStatus:invoicePaymentStatus};
-      this.http.put<{message: string}>('http://localhost:3000/api/invoice/updateInvoice/' + invoice.InvoiceId, paymentStatus)
+      this.http.put<{message: string}>('http://localhost:3000/api/invoice/updateInvoice/' + invoice._id, paymentStatus)
       .subscribe(response => {
         console.log(response);
         this.snackBar.open(response.message, null, {duration: 3000});
         const updatedInvoice = [...this.invoices];
-        const oldInvoiceIndex = updatedInvoice.findIndex(c => c.InvoiceId === invoiceToupdate.InvoiceId);
+        const oldInvoiceIndex = updatedInvoice.findIndex(c => c._id === invoiceToupdate._id);
         updatedInvoice[oldInvoiceIndex] = invoiceToupdate;
         invoiceToupdate.InvoicePaymentStatus = invoicePaymentStatus;
         this.invoices = updatedInvoice;

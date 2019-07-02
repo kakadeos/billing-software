@@ -1,5 +1,5 @@
 export class Invoice {
-  InvoiceId: string;
+  _id: string;
   InvoiceNumber: string;
   ToCompanyName: string;
   InvoiceFile: string;
