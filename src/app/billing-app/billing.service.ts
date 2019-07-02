@@ -42,6 +42,7 @@ export class BillingService {
       return invoiceData.invoices.map(invoice => {
       console.log(invoice);
       return {
+        InvoiceId: invoice._id,
         InvoiceNumber: invoice.InvoiceNumber,
         ToCompanyName: invoice.ToCompanyName,
         InvoiceFile: invoice.InvoiceFile,
@@ -51,9 +52,8 @@ export class BillingService {
       });
     }))
     .subscribe((TransformedInvoices) => {
-      console.log(TransformedInvoices);
+     // console.log(TransformedInvoices);
        this.invoices = TransformedInvoices;
-       console.log(this.invoices);
        this.invoiceUpdated.next([...this.invoices]);
     });
   }
@@ -61,4 +61,33 @@ export class BillingService {
   getInvoiceUpdateListener() {
     return this.invoiceUpdated.asObservable();
   }
+
+  UpdatePaymentStatus(invoice) {
+    console.log(invoice);
+      const invoiceToupdate = invoice;
+      var invoicePaymentStatus;
+      if(invoice.InvoicePaymentStatus === 'PAID') {
+        invoicePaymentStatus = 'UNPAID'
+      } else {
+        invoicePaymentStatus = 'PAID'
+      }
+      console.log(invoicePaymentStatus);
+      const paymentStatus = {invoicePaymentStatus:invoicePaymentStatus};
+      this.http.put<{message: string}>('http://localhost:3000/api/invoice/updateInvoice/' + invoice.InvoiceId, paymentStatus)
+      .subscribe(response => {
+        console.log(response);
+        this.snackBar.open(response.message, null, {duration: 3000});
+        const updatedInvoice = [...this.invoices];
+        const oldInvoiceIndex = updatedInvoice.findIndex(c => c.InvoiceId === invoiceToupdate.InvoiceId);
+        updatedInvoice[oldInvoiceIndex] = invoiceToupdate;
+        invoiceToupdate.InvoicePaymentStatus = invoicePaymentStatus;
+        this.invoices = updatedInvoice;
+        this.invoiceUpdated.next([...this.invoices]);
+        this.router.navigate(['/viewBills']);
+      },
+      error => {
+        this.snackBar.open(error.message, null, {duration: 3000});
+      });
+  }
+
 }
