@@ -19,6 +19,9 @@ export class ViewPreviousInvoicesComponent implements OnInit, AfterViewInit, OnD
 
   dataSource = new MatTableDataSource<Invoice>();
   private invoiceSub : Subscription;
+  color = 'accent';
+  checked = false;
+  disabled = false;
 
   constructor(private billingService: BillingService) { }
 
@@ -39,8 +42,9 @@ export class ViewPreviousInvoicesComponent implements OnInit, AfterViewInit, OnD
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  UpdatePaymentStatus(invoiceNumber) {
-    console.log(invoiceNumber);
+  UpdatePaymentStatus(invoice) {
+    console.log(invoice);
+    this.billingService.UpdatePaymentStatus(invoice);
   }
 
   ngOnDestroy() {

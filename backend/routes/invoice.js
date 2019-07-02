@@ -3,16 +3,7 @@ const router = express.Router();
 const Invoice = require('../models/invoice');
 const checkAuth = require('../middleware/check-auth');
 
-invoices = [
-    {InvoiceNumber: 'INV1', InvoiceTo: 'Vega1', InvoiceFile: 'Vega12', InvoiceDate: new Date()},
-    {InvoiceNumber: 'INV2', InvoiceTo: 'Vega2', InvoiceFile: 'Vega123', InvoiceDate: new Date()},
-    {InvoiceNumber: 'INV3', InvoiceTo: 'Vega3', InvoiceFile: 'Vega11', InvoiceDate: new Date()},
-    {InvoiceNumber: 'INV4', InvoiceTo: 'Vega4', InvoiceFile: 'Vega31', InvoiceDate: new Date()},
-  ];
-
 router.post('/newInvoice', checkAuth ,(req, res, next)=>{
-  console.log(req.body.formData);
-  console.log(req.body.itemtableData);
   const invoice = new Invoice({
   InvoiceNumber: req.body.formData.InvoiceNumber,
   CompanyName:  req.body.formData.CompanyName,
@@ -42,7 +33,6 @@ router.post('/newInvoice', checkAuth ,(req, res, next)=>{
   });
 
   invoice.save().then(invoiceAdded=>{
-    console.log(invoiceAdded);
     res.status(201).json({
       message : 'Invoice Added Successfully',
     });
@@ -51,7 +41,6 @@ router.post('/newInvoice', checkAuth ,(req, res, next)=>{
 
 router.get('/getInvoices',checkAuth, (req, res, next)=> {
   Invoice.find({InvoiceCreator:req.userData.userId}).then(documents => {
-    console.log(documents);
       res.status(200).json({
       message : 'Invoices fetched successfully.',
       invoices : documents
@@ -61,5 +50,29 @@ router.get('/getInvoices',checkAuth, (req, res, next)=> {
     res.status(400).json({message: 'Something went wrong.', error: error});
   });
 });
+
+
+router.put('/updateInvoice/:id',checkAuth,(req,res,next)=>{
+  console.log(req.body);
+ Invoice.update({_id: req.params.id},{InvoicePaymentStatus: req.body.invoicePaymentStatus})
+ .then(result=>{
+   console.log(result.nModified);
+
+  if(result.nModified > 0) {
+    res.status(200).json({
+      message : 'updated successfully.',
+    });
+  } else {
+    res.status(200).json({
+      message : 'Nothing is Updated',
+    });
+  }
+},
+error => {
+  res.status(401).json({message: 'Something went wrong.', error: error});
+});
+
+});
+
 
 module.exports = router;
