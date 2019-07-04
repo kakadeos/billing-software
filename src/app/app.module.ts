@@ -18,6 +18,7 @@ import { ForgotPasswordComponent } from './Auth/forgot-password/forgot-password.
 import { ChangePasswordComponent } from './Auth/change-password/change-password.component';
 import { GenerateBillComponent } from './billing-app/generate-bill/generate-bill.component';
 import { ViewPreviousInvoicesComponent } from './billing-app/view-previous-invoices/view-previous-invoices.component';
+import { StepperComponent } from './intro-slider/stepper/stepper.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { ViewPreviousInvoicesComponent } from './billing-app/view-previous-invoi
     ForgotPasswordComponent,
     ChangePasswordComponent,
     GenerateBillComponent,
-    ViewPreviousInvoicesComponent
+    ViewPreviousInvoicesComponent,
+    StepperComponent
   ],
   imports: [
     BrowserModule,
@@ -44,6 +46,6 @@ import { ViewPreviousInvoicesComponent } from './billing-app/view-previous-invoi
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
   bootstrap: [AppComponent],
-  entryComponents: [ForgotPasswordComponent]
+  entryComponents: [ForgotPasswordComponent, StepperComponent]
 })
 export class AppModule { }

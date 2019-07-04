@@ -13,7 +13,8 @@ router.post('/signup', (req, res, next) => {
     .then((hash) => {
       const user = new User({
         email: req.body.email,
-        password: hash
+        password: hash,
+        firstLogin: 'true'
       });
       user.save()
         .then(result => {
@@ -62,11 +63,13 @@ router.post('/login', (req, res, next) => {
         });
       }
       if(fetchedUser != null) {
+        console.log(fetchedUser);
         const token = jwt.sign({email: fetchedUser.email, userId: fetchedUser._id}, 'PROJECT_LOGIN', {expiresIn: '24h'});
       res.status(200).json({
         token: token,
         expiresIn: 86400,
-        userId: fetchedUser._id
+        userId: fetchedUser._id,
+        firstLogin: fetchedUser.firstLogin
       });
       }
     })
@@ -121,7 +124,7 @@ router.post('/forgotPassword', (req, res, next) => {
         });
       } else {
         fetchedUser = user;
-        const randomString = Math.random().toString(36).substring(7);
+        const randomString = Math.random().toString(36).substring(4);
         console.log(randomString);
         bcrypt.hash(randomString, 10).then(
           hash => {

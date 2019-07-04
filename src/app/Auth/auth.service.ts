@@ -3,7 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { AuthData } from './auth-data.model';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar, MatDialog } from '@angular/material';
+import { StepperComponent } from '../intro-slider/stepper/stepper.component';
 
 @Injectable({providedIn: "root"})
 export class AuthService {
@@ -13,9 +14,12 @@ export class AuthService {
   private userId: string;
   private tokenTimer : any;
   private authStatusListener = new Subject<boolean>();
+  private firstLoginListener = new Subject<string>();
   private msg: string;
+  private isItFirstLogin: string;
 
-  constructor( private http: HttpClient, private router: Router, private snackBar: MatSnackBar) {}
+  constructor( private http: HttpClient, private router: Router,
+     private snackBar: MatSnackBar) {}
 
   createUser(email:string, password:string) {
     const authData : AuthData = {
@@ -38,8 +42,9 @@ export class AuthService {
     const authData : AuthData = {
       email: email, password: password
     };
-    this.http.post<{token:string, expiresIn: number, userId: string}>('http://localhost:3000/api/user/login', authData)
+    this.http.post<{token:string, expiresIn: number, userId: string, firstLogin: string}>('http://localhost:3000/api/user/login', authData)
     .subscribe(response => {
+      console.log(response);
         const token = response.token;
         this.token = token;
         if(token) {
@@ -47,10 +52,12 @@ export class AuthService {
           this.setAuthtimer(expiresIn);
           this.isAuthenticated = true;
           this.userId = response.userId;
+          this.isItFirstLogin = response.firstLogin;
+          this.firstLoginListener.next(this.isItFirstLogin);
           this.authStatusListener.next(true);
           const now = new Date();
           const expirationInDate = new Date (now.getTime() + expiresIn * 1000);
-          this.saveAuthData(token, expirationInDate, this.userId);
+          this.saveAuthData(token, expirationInDate, this.userId, this.isItFirstLogin);
           this.router.navigate(['/']);
         }
     },
@@ -61,6 +68,14 @@ export class AuthService {
       }
       this.snackBar.open(this.msg , null, {duration: 3000});
     });
+  }
+
+  getIsItFirstLogin() {
+    return this.isItFirstLogin;
+  }
+
+  getFirtsLoginListener() {
+    return this.firstLoginListener.asObservable();
   }
 
   getToken() {
@@ -89,16 +104,18 @@ export class AuthService {
     this.router.navigate(['/login']);
   }
 
-  private saveAuthData(token : string, expirationInDate: Date, userId: string){
+  private saveAuthData(token : string, expirationInDate: Date, userId: string, firstLogin: string){
     localStorage.setItem('token', token);
     localStorage.setItem('expirationInDate', expirationInDate.toISOString());
     localStorage.setItem('userId', userId);
+    localStorage.setItem('firstLogin', firstLogin);
   }
 
   private clearAuthData(){
     localStorage.removeItem('token');
     localStorage.removeItem('expirationInDate');
     localStorage.removeItem('userId');
+    localStorage.removeItem('firstLogin');
   }
 
   autoAuthUser() {
@@ -113,6 +130,7 @@ export class AuthService {
       this.token = authInformation.token;
       this.userId = authInformation.userId;
       this.isAuthenticated = true;
+      this.isItFirstLogin = authInformation.firstLogin;
       this.setAuthtimer(expiresIn / 1000);
       this.authStatusListener.next(true);
     }
@@ -122,10 +140,11 @@ export class AuthService {
     const token = localStorage.getItem('token');
     const expirationInDate = localStorage.getItem('expirationInDate');
     const userid = localStorage.getItem('userId');
+    const firstLogin = localStorage.getItem('firstLogin');
     if(!token || !expirationInDate) {
       return;
     }
-    return { token: token, expirationInDate: new Date(expirationInDate), userId : userid};
+    return { token: token, expirationInDate: new Date(expirationInDate), userId : userid, firstLogin: firstLogin};
   }
 
   private setAuthtimer(duartion: number) {
