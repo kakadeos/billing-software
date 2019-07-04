@@ -7,14 +7,16 @@ import { AuthGuard } from './Auth/auth.guard';
 import { ChangePasswordComponent } from './Auth/change-password/change-password.component';
 import { GenerateBillComponent } from './billing-app/generate-bill/generate-bill.component';
 import { ViewPreviousInvoicesComponent } from './billing-app/view-previous-invoices/view-previous-invoices.component';
+import { StepperComponent } from './intro-slider/stepper/stepper.component';
 
 const routes: Routes = [
-  {path: '', component:AppStartComponent},
+  {path: '', component:AppStartComponent, canActivate: [AuthGuard]},
   {path: 'login', component: LoginComponent},
   {path: 'signup', component: SignupComponent},
   {path: 'changePassword', component: ChangePasswordComponent, canActivate: [AuthGuard]},
   {path: 'createBill', component: GenerateBillComponent, canActivate: [AuthGuard]},
-  {path: 'viewBills', component: ViewPreviousInvoicesComponent, canActivate: [AuthGuard]}
+  {path: 'viewBills', component: ViewPreviousInvoicesComponent, canActivate: [AuthGuard]},
+  {path: 'startModule', component: StepperComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({

@@ -1,0 +1,80 @@
+    <mat-horizontal-stepper labelPosition="bottom" [linear]="false" #stepper>
+      <mat-step [stepControl]="firstFormGroup">
+        <form [formGroup]="firstFormGroup">
+          <ng-template matStepLabel>Company Info</ng-template>
+          <div fxLayout='column'>
+              <mat-form-field>
+                  <input matInput placeholder="Enter Company Name" name="companyName" [(ngModel)]='passedData.companyName'
+                    formControlName="companyName" required>
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput placeholder="Enter Company GSTN" name="companyGSTN" [(ngModel)]='passedData.companyGSTN'
+                      formControlName="companyGSTN" required>
+                  </mat-form-field>
+          </div>
+          <div>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step [stepControl]="secondFormGroup">
+        <form [formGroup]="secondFormGroup">
+          <ng-template matStepLabel>Company Details</ng-template>
+          <div fxLayout='column'>
+              <mat-form-field>
+                  <input matInput placeholder="Company Initial Address" name="companyAddressInitial" [(ngModel)]='passedData.companyAddressInitial'
+                    formControlName="companyAddressInitial" required>
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput placeholder="Company Address(Additional Info)" name="companyAddressPart2" [(ngModel)]='passedData.companyAddressPart2'
+                      formControlName="companyAddressPart2" required>
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput placeholder="Company City" name="companyCity" [(ngModel)]='passedData.companyCity'
+                      formControlName="companyCity" required>
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput placeholder="Company Pincode" name="companyPincode" [(ngModel)]='passedData.companyPincode'
+                      formControlName="companyPincode" required>
+                </mat-form-field>
+          </div>
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step [stepControl]="thirdFormGroup">
+          <form [formGroup]="thirdFormGroup">
+            <ng-template matStepLabel>Company Details</ng-template>
+            <div fxLayout='column'>
+                <mat-form-field>
+                    <input matInput placeholder="Enter Company State" name="companyState" [(ngModel)]='passedData.companyState'
+                      formControlName="companyState" required>
+                  </mat-form-field>
+                  <mat-form-field>
+                      <input matInput placeholder="Enter Company Country" name="companyCountry" [(ngModel)]='passedData.companyCountry'
+                        formControlName="companyCountry" required>
+                    </mat-form-field>
+            </div>
+            <div>
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-button matStepperNext>Next</button>
+            </div>
+          </form>
+        </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Complete</ng-template>
+        <div fxLayout='row'>
+            You are now completed with initial setup.<br>
+            Lets get started.
+        </div>
+        <div fxLayout='row'>
+            <mat-icon>launch</mat-icon>
+        </div>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button [mat-dialog-close]='passedData'> Save & Proceed</button>
+        </div>
+      </mat-step>
+    </mat-horizontal-stepper>
