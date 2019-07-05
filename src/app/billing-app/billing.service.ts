@@ -49,7 +49,9 @@ export class BillingService {
         InvoicePaymentStatus: invoice.InvoicePaymentStatus
        };
       });
-    }))
+    }
+    )
+    )
     .subscribe((TransformedInvoices) => {
       console.log(TransformedInvoices);
        this.invoices = TransformedInvoices;

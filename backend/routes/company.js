@@ -5,19 +5,16 @@ const CompanyInfo = require('../models/company');
 const checkAuth = require('../middleware/check-auth');
 
 router.post('/addCompanyInfo', checkAuth, (req, res, next) => {
-  console.log('Request Come ');
-  console.log(req.body);
-
   const companyInfo = new CompanyInfo({
-    CompanyName: req.body.companyName,
-    CompanyAddressInitial: req.body.companyAddressInitial,
-    CompanyAddressPart2: req.body.companyAddressPart2,
-    CompanyCity: req.body.companyCity,
-    CompanyState: req.body.companyState,
-    CompanyCountry: req.body.companyCountry,
-    CompanyPincode: req.body.companyPincode,
-    CompanyGSTN: req.body.companyGSTN,
-    InvoiceCreator: req.userData.userId
+    companyName: req.body.companyName,
+    companyAddressInitial: req.body.companyAddressInitial,
+    companyAddressPart2: req.body.companyAddressPart2,
+    companyCity: req.body.companyCity,
+    companyState: req.body.companyState,
+    companyCountry: req.body.companyCountry,
+    companyPincode: req.body.companyPincode,
+    companyGSTN: req.body.companyGSTN,
+    companyCreator: req.userData.userId
   });
 
   companyInfo.save().then(companyInfoAdded => {
@@ -35,6 +32,55 @@ router.post('/addCompanyInfo', checkAuth, (req, res, next) => {
       });
   });
 
+});
+
+
+router.get('/getCompanyProfile',checkAuth, (req, res, next)=> {
+  //console.log(req.userData.userId);
+  CompanyInfo.findOne({companyCreator:req.userData.userId}).then(CompanyProfile => {
+    if(CompanyProfile){
+      res.status(200).json(CompanyProfile);
+    } else {
+      res.status(400).json({
+        message : 'Company Details Not Found.',
+      });
+    }
+  },
+  error => {
+    console.log(error);
+    res.status(400).json({message: 'Something went wrong.', error: error});
+  });
+});
+
+router.put('/updateCompanyProfile/:id',checkAuth, (req,res,next)=>{
+  const companyInfo = new CompanyInfo({
+    _id: req.params.id,
+    companyName: req.body.CompanyName,
+    companyAddressInitial: req.body.CompanyAddressInitial,
+    companyAddressPart2: req.body.CompanyAddressPart2,
+    companyCity: req.body.CompanyCity,
+    companyState: req.body.CompanyState,
+    companyCountry: req.body.CompanyCountry,
+    companyPincode: req.body.CompanyPincode,
+    companyGSTN: req.body.CompanyGSTN,
+    companyCreator: req.userData.userId
+  });
+  console.log(req.params.id);
+  CompanyInfo.updateOne({_id: req.params.id}, companyInfo)
+  .then(result=>{
+    if(result.nModified > 0) {
+      res.status(200).json({
+        message : 'Company Profile updated successfully',
+      });
+    } else {
+      res.status(200).json({
+        message : 'Nothing is Updated',
+      });
+    }
+  },
+  error => {
+    res.status(401).json({message: 'Something went wrong.', error: error});
+  });
 });
 
 module.exports = router;

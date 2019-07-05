@@ -19,6 +19,7 @@ import { ChangePasswordComponent } from './Auth/change-password/change-password.
 import { GenerateBillComponent } from './billing-app/generate-bill/generate-bill.component';
 import { ViewPreviousInvoicesComponent } from './billing-app/view-previous-invoices/view-previous-invoices.component';
 import { StepperComponent } from './intro-slider/stepper/stepper.component';
+import { CompanyInfoComponent } from './app-start/company-info/company-info.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { StepperComponent } from './intro-slider/stepper/stepper.component';
     ChangePasswordComponent,
     GenerateBillComponent,
     ViewPreviousInvoicesComponent,
-    StepperComponent
+    StepperComponent,
+    CompanyInfoComponent
   ],
   imports: [
     BrowserModule,
