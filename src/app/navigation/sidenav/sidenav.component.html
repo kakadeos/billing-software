@@ -1,5 +1,5 @@
 <mat-nav-list>
-    <a mat-list-item routerLink='/' (click)='onClose()'>
+    <a mat-list-item *ngIf='!userIsAuthenticated' routerLink='/' (click)='onClose()'>
       <mat-icon>home</mat-icon>
       <span class='nav-caption'>Home</span>
     </a>
@@ -18,6 +18,10 @@
     <a mat-list-item routerLink='/viewBills' *ngIf='userIsAuthenticated' (click)='onClose()'>
       <mat-icon>autorenew</mat-icon>
       <span class='nav-caption'>View Bills</span>
+    </a>
+    <a mat-list-item routerLink='/viewCompanyProfile' *ngIf='!userIsAuthenticated' (click)='onClose()'>
+      <mat-icon>input</mat-icon>
+      <span class='nav-caption'>Company Profile</span>
     </a>
     <a mat-list-item routerLink='/changePassword' *ngIf='userIsAuthenticated' (click)='onClose()'>
       <mat-icon>autorenew</mat-icon>

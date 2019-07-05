@@ -1,0 +1,52 @@
+<section class="CompanyProfile" fxLayout='column' fxLayoutGap='10px' fxLayoutAlign='center center'>
+  <mat-card fxLayout='column' fxLayoutGap='10px' fxLayoutAlign='center center'>
+    <mat-card-content>
+      <form [formGroup]='form' (submit)='editDetails()' fxLayout='column' fxLayoutAlign='center center'
+        fxLayoutGap='1%'>
+        <mat-form-field >
+          <input placeholder="Enter Company Name" type="text" matInput formControlName="CompanyName"
+            [(ngModel)]='companyName'>
+          <mat-error *ngIf="form.get('CompanyName').invalid">Please Enter invoice Number.</mat-error>
+        </mat-form-field>
+        <mat-form-field >
+          <input placeholder="Enter Company Address 1" type="text" matInput formControlName="CompanyAddressInitial"
+            [(ngModel)]='companyAddressInitial'>
+          <mat-error *ngIf="form.get('CompanyAddressInitial').invalid">Please Enter Company Address.</mat-error>
+        </mat-form-field>
+        <mat-form-field >
+          <input placeholder="Enter Company Address 2" type="text" matInput formControlName="CompanyAddressPart2"
+            [(ngModel)]='companyAddressPart2'>
+          <mat-error *ngIf="form.get('CompanyAddressPart2').invalid">Please Enter Company Address.</mat-error>
+        </mat-form-field>
+        <mat-form-field >
+          <input placeholder="Enter Company City" type="text" matInput formControlName="CompanyCity"
+            [(ngModel)]='companyCity'>
+          <mat-error *ngIf="form.get('CompanyCity').invalid">Please Enter Company City.</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input placeholder="Enter Company Pincode" type="text" matInput formControlName="CompanyPincode"
+            [(ngModel)]='companyPincode'>
+          <mat-error *ngIf="form.get('CompanyPincode').invalid">Please Enter Company City.</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input placeholder="Enter Company State" type="text" matInput formControlName="CompanyState"
+            [(ngModel)]='compnayState'>
+          <mat-error *ngIf="form.get('CompanyState').invalid">Please Enter Company City.</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input placeholder="Enter Company Country" type="text" matInput formControlName="CompanyCountry"
+            [(ngModel)]='companyCountry'>
+          <mat-error *ngIf="form.get('CompanyCountry').invalid">Please Enter Company Country.</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input placeholder="Enter Company GSTN" type="text" matInput formControlName="CompanyGSTN"
+            [(ngModel)]='companyGSTN'>
+          <mat-error *ngIf="form.get('CompanyGSTN').invalid">Please Enter Company GSTN.</mat-error>
+        </mat-form-field>
+        <button mat-raised-button color='accent' type='submit'>Save Company Details</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</section>
