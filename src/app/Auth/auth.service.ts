@@ -28,6 +28,7 @@ export class AuthService {
     this.http.post<{message:string, result: object}>('http://localhost:3000/api/user/signup', authData)
     .subscribe(response => {
         this.snackBar.open(response.message, null, {duration: 3000});
+        this.router.navigate(['/login']);
     },
     (error) => {
       this.msg = error.error.message;
