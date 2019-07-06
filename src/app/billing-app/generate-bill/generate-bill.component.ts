@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { BillingService } from '../billing.service';
+import { AppStartService } from 'src/app/app-start/appStart.service';
 
 @Component({
   selector: 'app-generate-bill',
@@ -45,7 +46,8 @@ export class GenerateBillComponent implements OnInit {
   form : FormGroup;
   footerYear : number;
 
-  constructor(private billingService: BillingService) { }
+  constructor(private billingService: BillingService,
+    private appStartService: AppStartService) { }
 
   ngOnInit() {
     this.form = new FormGroup({
@@ -76,15 +78,19 @@ export class GenerateBillComponent implements OnInit {
         'InvoiceNotes': new FormControl('Enter Invoice Notes')
     });
 
+    this.appStartService.getCompanyProfile().subscribe(companyData => {
+      this.form.get('CompanyName').setValue(companyData.companyName);
+      this.form.get('CompanyName').disable();
+      this.form.get('CompanyAddressInitial').setValue(companyData.companyAddressInitial);
+      this.form.get('CompanyAddressPart2').setValue(companyData.companyAddressPart2);
+      this.form.get('CompanyCity').setValue(companyData.companyCity);
+      this.form.get('CompanyState').setValue(companyData.companyState);
+      this.form.get('CompanyCountry').setValue(companyData.companyCountry);
+      this.form.get('CompanyPincode').setValue(companyData.companyPincode);
+      this.form.get('CompanyGSTN').setValue(companyData.companyGSTN);
+      this.form.get('CompanyGSTN').disable();
+    })
     this.invoiceNumber = 'INV-0004';
-    this.companyName = 'Evolabs Technology and Solutions LLP';
-    this.companyAddressInitial = '7, pitrusmriti, Vikaram Nagar';
-    this.companyAddressPart2 = 'Kalwa West';
-    this.companyCity = 'Thane';
-    this.compnayState = 'Maharashtra';
-    this.companyCountry = 'India';
-    this.companyPincode = '421605';
-    this.companyGSTN = 'GSTIN 27AAHFE3985H1Z3';
     this.toCompanyName = 'Vega Solutions Pvt. Ltd.';
     this.toCompanyAddressInitial = 'Flat No 13, Ground Floor,​​Carol Mansion CHS. Ltd,';
     this.toCompanyAddressPart2 = '35 Sitaldevi, Temple Road, Mahim(W)';
