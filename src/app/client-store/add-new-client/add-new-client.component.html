@@ -1,8 +1,8 @@
  <mat-card fxLayout='column' fxLayoutGap='10px' fxLayoutAlign='center center'>
     <mat-card-content>
-      <form [formGroup]='form' (submit)='editDetails()' fxLayout='column' fxLayoutAlign='center center'
+      <form [formGroup]='form' (submit)='addNewClient()' fxLayout='column' fxLayoutAlign='center center'
         fxLayoutGap='1%'>
-        <div fxLayout.xs='column'  fxLayoutGap='10px'>
+        <div fxLayout.xs='column' fxLayoutGap='10px'>
           <mat-form-field>
             <input placeholder="Enter Company Name" type="text" matInput formControlName="CompanyName"
               [(ngModel)]='companyName'>
@@ -52,7 +52,7 @@
           </mat-form-field>
         </div>
 
-        <button mat-raised-button color='accent' type='submit'>Save Company Details</button>
+        <button mat-raised-button color='accent' type='submit'>Add New Client</button>
       </form>
     </mat-card-content>
   </mat-card>

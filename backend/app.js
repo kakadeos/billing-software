@@ -6,6 +6,7 @@ const app = express();
 const userRoutes = require('./routes/user');
 const invoiceRoutes = require('./routes/invoice');
 const companyInfoRoutes = require('./routes/company');
+const clientRoutes = require('./routes/client');
 
 mongoose.set('useCreateIndex', true);
 mongoose.connect('mongodb+srv://omkar:PnLpaxxqMcBzcXwx@projectbilling-2xwu9.mongodb.net/test?retryWrites=true&w=majority', { useNewUrlParser: true }).then(
@@ -28,6 +29,7 @@ app.use((req,res,next)=>{
 app.use('/api/user', userRoutes);
 app.use('/api/invoice/', invoiceRoutes);
 app.use('/api/company/', companyInfoRoutes);
+app.use('/api/clients/', clientRoutes);
 
 
 module.exports = app;
