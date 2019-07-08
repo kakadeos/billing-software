@@ -20,6 +20,7 @@ import { GenerateBillComponent } from './billing-app/generate-bill/generate-bill
 import { ViewPreviousInvoicesComponent } from './billing-app/view-previous-invoices/view-previous-invoices.component';
 import { StepperComponent } from './intro-slider/stepper/stepper.component';
 import { CompanyInfoComponent } from './app-start/company-info/company-info.component';
+import { AddNewClientComponent } from './client-store/add-new-client/add-new-client.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { CompanyInfoComponent } from './app-start/company-info/company-info.comp
     GenerateBillComponent,
     ViewPreviousInvoicesComponent,
     StepperComponent,
-    CompanyInfoComponent
+    CompanyInfoComponent,
+    AddNewClientComponent
   ],
   imports: [
     BrowserModule,

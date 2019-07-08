@@ -9,6 +9,7 @@ import { GenerateBillComponent } from './billing-app/generate-bill/generate-bill
 import { ViewPreviousInvoicesComponent } from './billing-app/view-previous-invoices/view-previous-invoices.component';
 import { StepperComponent } from './intro-slider/stepper/stepper.component';
 import { CompanyInfoComponent } from './app-start/company-info/company-info.component';
+import { AddNewClientComponent } from './client-store/add-new-client/add-new-client.component';
 
 const routes: Routes = [
   {path: '', component:AppStartComponent, canActivate: [AuthGuard]},
@@ -18,7 +19,8 @@ const routes: Routes = [
   {path: 'createBill', component: GenerateBillComponent, canActivate: [AuthGuard]},
   {path: 'viewBills', component: ViewPreviousInvoicesComponent, canActivate: [AuthGuard]},
   {path: 'startModule', component: StepperComponent, canActivate: [AuthGuard]},
-  {path: 'viewCompanyProfile', component: CompanyInfoComponent, canActivate: [AuthGuard]}
+  {path: 'viewCompanyProfile', component: CompanyInfoComponent, canActivate: [AuthGuard]},
+  {path: 'addNewClient', component: AddNewClientComponent, canActivate:[AuthGuard]},
 ];
 
 @NgModule({
