@@ -6,19 +6,15 @@
 
 
 .displayInvoiceGenerated {
-  border: 1px white solid;
+  border: 1px black solid;
   padding-left: 1.5%;
   padding-right: 1.5%;
   padding-top: 2%;
   padding-bottom: 1.5%;
-}
-
-table {
-  text-align: center;
+  
 }
 
 .invoiceHeader {
-  background-color: blue;
   border-top-left-radius: 25px;
   padding-bottom: 1%;
   padding-top: 1%;
@@ -27,8 +23,7 @@ table {
 }
 
 .invoicePreview {
-  border-left: 1px black solid;
-  border-right: 1px black solid;
+  border: 1px black solid;
   padding-left: 0.5%;
   padding-right: 0.5%;
   padding-top: 1%;
@@ -38,11 +33,23 @@ table {
 .invoiceTitle {
   font-size: 36px;
   font-weight: bold;
+  font-family: 'Roboto';
+  color:black;
 }
 
 .invoiceFooter {
-  background-color: blue;
+  background-color:white;
   border-bottom-left-radius: 25px;
   border-bottom-right-radius: 25px;
+  border-top: 1px solid grey;
   padding: 3%;
+}
+
+.invoicePreview {
+    padding-left: 15px;
+}
+
+tr:last-child{
+  background-color: teal;
+  color: beige;
 }
