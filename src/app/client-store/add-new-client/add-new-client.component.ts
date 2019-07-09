@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ClientManagementService } from '../ClientManagement.service';
+import { Client } from '../Client.module';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-add-new-client',
@@ -35,8 +37,13 @@ export class AddNewClientComponent implements OnInit {
     });
   }
 
+
+
   addNewClient() {
-    this.clientService.AddNewClient(this.form.value);
+    this.clientService.AddNewClient(this.form.value.CompanyName,this.form.value.CompanyAddressInitial,
+      this.form.value.CompanyAddressPart2,this.form.value.CompanyCity,this.form.value.CompanyState,
+      this.form.value.CompanyCountry,this.form.value.CompanyPincode,this.form.value.CompanyGSTN
+       );
   }
 
   ViewMyClients() {

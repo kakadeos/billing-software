@@ -4,6 +4,7 @@ const Invoice = require('../models/invoice');
 const checkAuth = require('../middleware/check-auth');
 
 router.post('/newInvoice', checkAuth ,(req, res, next)=>{
+  console.log(req.body.formData);
   const invoice = new Invoice({
   InvoiceNumber: req.body.formData.InvoiceNumber,
   CompanyName:  req.body.formData.CompanyName,

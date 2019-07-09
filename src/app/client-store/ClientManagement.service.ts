@@ -16,17 +16,19 @@ export class ClientManagementService {
   constructor(private http: HttpClient, private router: Router,
     private snackBar: MatSnackBar) {}
 
-    AddNewClient(ClientData) {
-      console.log(ClientData);
+    AddNewClient(CompanyName: string, CompanyAddressInitial: string, CompanyAddressPart2: string,
+      CompanyCity: string, CompanyPincode: string, CompanyState: string, CompanyCountry: string,
+      CompanyGSTN: string) {
       const Client: Client = {
-        ClientCompanyName: ClientData.CompanyName,
-        ClientCompanyAddressInitial: ClientData.CompanyAddressInitial,
-        ClientCompanyAddressPart2: ClientData.CompanyAddressPart2,
-        ClientCompanyCity: ClientData.CompanyCity,
-        ClientCompanyState: ClientData.CompanyState,
-        ClientCompanyCountry: ClientData.CompanyCountry,
-        ClientCompanyPincode: ClientData.CompanyPincode,
-        ClientCompanyGSTN: ClientData.CompanyGSTN
+        id: null,
+        ClientCompanyName: CompanyName,
+        ClientCompanyAddressInitial: CompanyAddressInitial,
+        ClientCompanyAddressPart2: CompanyAddressPart2,
+        ClientCompanyCity: CompanyCity,
+        ClientCompanyState: CompanyState,
+        ClientCompanyCountry: CompanyCountry,
+        ClientCompanyPincode: CompanyPincode,
+        ClientCompanyGSTN: CompanyGSTN
       };
       this.http.post<{ message: string, result: object }>('http://localhost:3000/api/clients/addNewClient', Client)
         .subscribe(response => {
@@ -47,12 +49,12 @@ export class ClientManagementService {
         return clientData.clients.map(client => {
           console.log(client);
          return {
-            ClientId : client._id,
+            id : client._id,
             ClientCompanyName: client.companyName,
             ClientCompanyAddressInitial: client.companyAddressInitial,
             ClientCompanyAddressPart2 : client.companyAddressPart2,
             ClientCompanyCity: client.companyCity,
-            ClientCompanyPinCode: client.companyPincode,
+            ClientCompanyPincode: client.companyPincode,
             ClientCompanyState: client.companyState,
             ClientCompanyCountry: client.companyCountry,
             ClientCompanyGSTN: client.companyGSTN,
