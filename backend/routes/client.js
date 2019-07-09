@@ -14,7 +14,7 @@ router.post('/addNewClient', checkAuth, (req, res, next) => {
     companyCountry: req.body.ClientCompanyCountry,
     companyPincode: req.body.ClientCompanyPincode,
     companyGSTN: req.body.ClientCompanyGSTN,
-    companyCreator: req.userData.userId
+    clientCreator: req.userData.userId
   });
 
   clientInfo.save().then(ClientInfoAdded => {
@@ -30,8 +30,6 @@ router.post('/addNewClient', checkAuth, (req, res, next) => {
 
 router.get('/getClients',checkAuth, (req, res, next)=> {
   Client.find({clientCreator:req.userData.userId}).then(documents => {
-    console.log(documents);
-
       res.status(200).json({
       message : 'Clients fetched successfully.',
       clients : documents
