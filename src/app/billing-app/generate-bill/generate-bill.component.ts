@@ -98,14 +98,14 @@ export class GenerateBillComponent implements OnInit {
      // this.form.get('CompanyGSTN').disable();
     })
     this.invoiceNumber = 'INV-0004';
-    this.toCompanyName = 'Vega Solutions Pvt. Ltd.';
-    this.toCompanyAddressInitial = 'Flat No 13, Ground Floor,​​Carol Mansion CHS. Ltd,';
-    this.toCompanyAddressPart2 = '35 Sitaldevi, Temple Road, Mahim(W)';
-    this.toCompanyCity = 'Mumbai';
-    this.toCompnayState = 'Maharashtra';
-    this.toCompanyCountry = 'India';
-    this.toCompanyPincode = '400016';
-    this.toCompanyGSTN = 'GSTIN ​27AAHCM7581Q1ZI';
+    this.toCompanyName = 'Company Name';
+    this.toCompanyAddressInitial = 'Company Address Part1';
+    this.toCompanyAddressPart2 = 'COmpany Address Part2';
+    this.toCompanyCity = 'Company City';
+    this.toCompnayState = 'Company State';
+    this.toCompanyCountry = 'Country';
+    this.toCompanyPincode = 'Pincode';
+    this.toCompanyGSTN = 'GSTINLLSKAKSKS';
     this.invoiceDate = new Date();
     this.invoiceTerms = 'Terms';
     this.addItem(1, 'WebApp', 1, 18000);
@@ -190,6 +190,17 @@ export class GenerateBillComponent implements OnInit {
       this.form.get('ToCompanyPincode').setValue(client.ClientCompanyPincode);
       this.form.get('ToCompanyGSTN').setValue(client.ClientCompanyGSTN);
     }
+  }
+
+  clearClientDetails() {
+    this.form.get('ToCompanyName').setValue('Company Name');
+      this.form.get('ToCompanyAddressInitial').setValue('Client Company Address Part 1');
+      this.form.get('ToCompanyAddressPart2').setValue('Client Company Address Part 2');
+      this.form.get('ToCompanyCity').setValue('Company City');
+      this.form.get('ToCompanyState').setValue('Company State');
+      this.form.get('ToCompanyCountry').setValue('Company Country');
+      this.form.get('ToCompanyPincode').setValue('Company Pincode');
+      this.form.get('ToCompanyGSTN').setValue('Company GSTN');
   }
 
   step = 0;
