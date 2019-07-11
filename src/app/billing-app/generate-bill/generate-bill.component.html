@@ -94,6 +94,7 @@
               <mat-form-field>
                 <input type="text" placeholder="Select Client Name" aria-label="Number" matInput [formControl]="myControl"
                  [matAutocomplete]="auto">
+                 <button mat-icon-button (click)='clearClientDetails()' matSuffix><mat-icon>close</mat-icon></button>
                 <mat-autocomplete #auto="matAutocomplete" (optionSelected)='getClientFields($event.option.value)'>
                   <mat-option *ngFor="let option of options" [value]="option.ClientCompanyName">
                     {{option.ClientCompanyName}}
