@@ -306,12 +306,10 @@
       </mat-accordion>
     </div>
 
-    <div class="container-fluid">
+    <div class="container-fluid invoice-preview" >
       <div class="row">
-        <div class="col-md-4 logo">
-          <img src="D:\general-billing-software\src\assets\evo-white-350.png">
-        </div>
-        <div class="col-md-4">
+        <div class="col-md-8 logo">
+          <img src="..\assets\evo-white-350.png" height='150px' width='300px'>
         </div>
         <div class="col-md-4">
           <span class='invoiceTitle'>INVOICE</span>
@@ -353,7 +351,7 @@
       <br>
       <div class="row">
         <div class="col-md-12">
-          
+
           <table class="table">
             <thead>
               <tr>
@@ -372,7 +370,7 @@
                     <td>{{item.itemRate}}</td>
                     <td>{{item.itemCost}}</td>
                 </tr>
-                
+
             <tr class="invoiceTotal">
               <td colspan="4" align="right" >Sub Cost :</td>
               <td><span> {{itemSubTotalCost.toFixed(2)}}</span></td>
@@ -412,4 +410,8 @@
         </div>
       </div>
     </div>
-    
+</div>
+<div fxLayout='column' fxLayoutGap='10px' fxLayoutAlign='center center'>
+    <br>
+  </div>
+</section>

@@ -23,6 +23,10 @@
       <mat-icon>input</mat-icon>
       <span class='nav-caption'>Company Profile</span>
     </a>
+    <a mat-list-item routerLink='/addNewClient' *ngIf='userIsAuthenticated' (click)='onClose()'>
+      <mat-icon>autorenew</mat-icon>
+      <span class='nav-caption'>Add New Client</span>
+    </a>
     <a mat-list-item routerLink='/changePassword' *ngIf='userIsAuthenticated' (click)='onClose()'>
       <mat-icon>autorenew</mat-icon>
       <span class='nav-caption'>Change Password</span>
