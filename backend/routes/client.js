@@ -75,4 +75,26 @@ router.put('/updateClient/:id',checkAuth,(req,res,next)=>{
 }
 );
 
+
+router.delete('/deleteClient/:id',checkAuth,(req,res,next)=>{
+  console.log(req.params.id);
+  console.log(req.userData.userId);
+  Client.deleteOne({_id : req.params.id, clientCreator: req.userData.userId})
+  .then((result)=>{
+    console.log(result);
+    if(result.n > 0) {
+      res.status(200).json({
+        message : 'client deleted successfully',
+      });
+    } else {
+      res.status(401).json({
+        message : 'some error occured',
+      });
+    }
+  },
+  error => {
+    res.status(400).json({message: 'Something went wrong.', error: error});
+  });
+});
+
 module.exports = router;

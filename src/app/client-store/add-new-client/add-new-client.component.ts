@@ -2,7 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators, NgForm, FormGroupDirective } from '@angular/forms';
 import { ClientManagementService } from '../ClientManagement.service';
 import { Client } from '../Client.module';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
+import { startWith, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-add-new-client',
@@ -25,6 +26,7 @@ export class AddNewClientComponent implements OnInit {
   private clientSub: Subscription;
   myControl: FormControl;
   newOrEditFlag : boolean;
+  filteredOptions: Observable<Client[]>;
 
   constructor(private clientService: ClientManagementService) { }
 
@@ -48,8 +50,25 @@ export class AddNewClientComponent implements OnInit {
       this.options = clients;
       console.log(this.options);
     });
+
+    this.filteredOptions = this.myControl.valueChanges
+      .pipe(
+        startWith(''),
+        map(value => this._filter(value))
+      );
   }
 
+  private _filter(value: string): Client[] {
+    const filterValueLower = value.toLowerCase();
+    const filterValueUpper = value.toUpperCase();
+    if (filterValueLower == '' || filterValueUpper==''){
+      console.log(this.options);
+      return this.options;
+    } else {
+      return this.options.filter(option => option.ClientCompanyName.indexOf(filterValueLower) === 0 || option.ClientCompanyName.indexOf(filterValueUpper) === 0);
+    }
+
+  }
 
 
   addOrUpdateClient() {
@@ -58,6 +77,7 @@ export class AddNewClientComponent implements OnInit {
       this.form.value.CompanyAddressPart2,this.form.value.CompanyCity,this.form.value.CompanyState,
       this.form.value.CompanyCountry,this.form.value.CompanyPincode,this.form.value.CompanyGSTN
       );
+      this.clearForm();
     } else {
       const client: Client = this.options.find(v => v.ClientCompanyName === this.form.get('CompanyName').value);
       const companyName = this.form.controls['CompanyName'].value;
@@ -101,4 +121,14 @@ export class AddNewClientComponent implements OnInit {
     this.formGroupDirective.resetForm();
   }
 
+  deleteClient() {
+    const client: Client = this.options.find(v => v.ClientCompanyName === this.form.controls['CompanyName'].value);
+    const clientId = client.id;
+    this.clientService.deleteClient(clientId);
+    this.newOrEditFlag = true;
+    this.myControl.setValue('');
+    this.form.get('CompanyName').enable();
+    this.form.reset();
+    this.formGroupDirective.resetForm();
+  }
 }

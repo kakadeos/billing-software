@@ -101,4 +101,18 @@ export class ClientManagementService {
           this.snackBar.open(error.message, null, { duration: 3000 });
         });
   }
+
+  deleteClient(clientId: string) {
+    console.log(clientId);
+    this.http.delete<{message: string}>('http://localhost:3000/api/clients/deleteClient/' + clientId)
+    .subscribe((responseData) => {
+      this.snackBar.open(responseData.message, null, {duration: 3000});
+      const updatedClients = this.clients.filter(client => client.id !== clientId);
+      this.clients = updatedClients;
+      this.clientsUpdated.next([...this.clients]);
+    },
+    error => {
+      this.snackBar.open(error.message, null, {duration: 3000});
+    });
+  }
 }

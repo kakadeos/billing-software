@@ -4,7 +4,7 @@
          [matAutocomplete]="auto">
          <button mat-icon-button (click)='clearForm()' type='reset' matSuffix><mat-icon>close</mat-icon></button>
         <mat-autocomplete #auto="matAutocomplete" (optionSelected)='getClientFields($event.option.value)'>
-          <mat-option *ngFor="let option of options" [value]="option.ClientCompanyName">
+          <mat-option *ngFor="let option of filteredOptions | async" [value]="option.ClientCompanyName">
             {{option.ClientCompanyName}}
           </mat-option>
         </mat-autocomplete>
@@ -62,6 +62,7 @@
         </mat-form-field>
       </div>
       <button mat-raised-button color='accent' type='submit' *ngIf='newOrEditFlag'>Add New Client</button>
+      <button mat-raised-button color='accent' type='button' (click)='deleteClient()' *ngIf='!newOrEditFlag'>Delete Client</button>
       <button mat-raised-button color='accent' type='submit' *ngIf='!newOrEditFlag'>Update Client</button>
     </form>
   </mat-card-content>
