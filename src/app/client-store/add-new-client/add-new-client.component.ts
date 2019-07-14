@@ -48,26 +48,17 @@ export class AddNewClientComponent implements OnInit {
     this.clientService.getClientList();
     this.clientSub = this.clientService.getClientUpdateListener().subscribe((clients: Client[]) => {
       this.options = clients;
-      console.log(this.options);
-    });
-
-    this.filteredOptions = this.myControl.valueChanges
+      this.filteredOptions = this.myControl.valueChanges
       .pipe(
         startWith(''),
-        map(value => this._filter(value))
+        map(value => value ? this._filter(value) : this.options.slice())
       );
+    });
   }
 
   private _filter(value: string): Client[] {
-    const filterValueLower = value.toLowerCase();
-    const filterValueUpper = value.toUpperCase();
-    if (filterValueLower == '' || filterValueUpper==''){
-      console.log(this.options);
-      return this.options;
-    } else {
-      return this.options.filter(option => option.ClientCompanyName.indexOf(filterValueLower) === 0 || option.ClientCompanyName.indexOf(filterValueUpper) === 0);
-    }
-
+    const filterValue = value.toLowerCase();
+    return this.options.filter(client => client.ClientCompanyName.toLowerCase().includes(filterValue));
   }
 
 
