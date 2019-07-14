@@ -24,7 +24,7 @@ export class AppStartService {
       companyCountry: companyData.companyCountry,
       companyPincode: companyData.companyPincode,
       companyGSTN: companyData.companyGSTN,
-      companyLogo: companyData.companyLogo
+      companyLogoPath: companyData.companyLogo
     };
     const companyDetails = new FormData();
     companyDetails.append('companyName',companyData.companyName);
@@ -53,7 +53,7 @@ export class AppStartService {
   getCompanyProfile() {
     return this.http.get<{_id: string, companyName: string, companyAddressInitial: string, companyAddressPart2: string,
       companyCity: string, companyState: string, companyCountry: string, companyPincode: string,
-      companyGSTN: string}>('http://localhost:3000/api/company/getCompanyProfile');
+      companyGSTN: string, companyLogoPath: string}>('http://localhost:3000/api/company/getCompanyProfile');
   }
 
   updateCompanyProfile(CompanyId: string, CompanyData: CompanyInfo) {

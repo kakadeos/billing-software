@@ -51,6 +51,7 @@ export class GenerateBillComponent implements OnInit {
   options: Client[];
   private clientSub: Subscription;
   myControl: FormControl;
+  imageSrc:string;
 
   constructor(private billingService: BillingService,
     private appStartService: AppStartService, private clientService: ClientManagementService) { }
@@ -86,6 +87,7 @@ export class GenerateBillComponent implements OnInit {
     });
 
     this.appStartService.getCompanyProfile().subscribe(companyData => {
+
       this.form.get('CompanyName').setValue(companyData.companyName);
       //this.form.get('CompanyName').disable();
       this.form.get('CompanyAddressInitial').setValue(companyData.companyAddressInitial);
@@ -96,11 +98,14 @@ export class GenerateBillComponent implements OnInit {
       this.form.get('CompanyPincode').setValue(companyData.companyPincode);
       this.form.get('CompanyGSTN').setValue(companyData.companyGSTN);
      // this.form.get('CompanyGSTN').disable();
+     this.imageSrc = companyData.companyLogoPath;
+      console.log(companyData);
+      console.log(this.imageSrc);
     })
     this.invoiceNumber = 'INV-0004';
     this.toCompanyName = 'Company Name';
     this.toCompanyAddressInitial = 'Company Address Part1';
-    this.toCompanyAddressPart2 = 'COmpany Address Part2';
+    this.toCompanyAddressPart2 = 'Company Address Part2';
     this.toCompanyCity = 'Company City';
     this.toCompnayState = 'Company State';
     this.toCompanyCountry = 'Country';
