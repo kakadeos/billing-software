@@ -22,6 +22,7 @@ export class AppStartComponent implements OnInit {
   companyCountry: string;
   companyPincode: string;
   companyGSTN: string;
+  companyLogo: File;
 
   private firstLoginListener : Subscription;
   firstLogin: string;
@@ -42,12 +43,13 @@ export class AppStartComponent implements OnInit {
         companyState: this.companyState,
         companyCountry: this.companyCountry,
         companyPincode: this.companyPincode,
-        companyGSTN: this.companyGSTN
+        companyGSTN: this.companyGSTN,
+        companyLogo: this.companyLogo
       }}
       );
       this.dialogRef.afterClosed().subscribe(
         companyDetails => {
-            this.appStartService.saveCompanyInfo(companyDetails);
+          this.appStartService.saveCompanyInfo(companyDetails);
         }
       );
     }

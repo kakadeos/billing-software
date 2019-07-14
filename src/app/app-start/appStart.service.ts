@@ -23,9 +23,20 @@ export class AppStartService {
       companyState: companyData.companyState,
       companyCountry: companyData.companyCountry,
       companyPincode: companyData.companyPincode,
-      companyGSTN: companyData.companyGSTN
+      companyGSTN: companyData.companyGSTN,
+      companyLogo: companyData.companyLogo
     };
-    this.http.post<{ message: string, result: object }>('http://localhost:3000/api/company/addCompanyInfo', companyData)
+    const companyDetails = new FormData();
+    companyDetails.append('companyName',companyData.companyName);
+    companyDetails.append('companyAddressInitial',companyData.companyAddressInitial);
+    companyDetails.append('companyAddressPart2',companyData.companyAddressPart2);
+    companyDetails.append('companyCity',companyData.companyCity);
+    companyDetails.append('companyState',companyData.companyState);
+    companyDetails.append('companyCountry',companyData.companyCountry);
+    companyDetails.append('companyPincode',companyData.companyPincode);
+    companyDetails.append('companyGSTN',companyData.companyGSTN);
+    companyDetails.append('companyLogo',companyData.companyLogo, companyData.companyName);
+    this.http.post<{ message: string, result: object }>('http://localhost:3000/api/company/addCompanyInfo', companyDetails)
       .subscribe(response => {
         this.snackBar.open(response.message, null, { duration: 3000 });
         localStorage.setItem('firstLogin', 'false');

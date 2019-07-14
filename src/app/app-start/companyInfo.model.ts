@@ -7,4 +7,5 @@ export interface CompanyInfo {
   companyCountry: string;
   companyPincode: string;
   companyGSTN: string;
+  companyLogo: string;
 }

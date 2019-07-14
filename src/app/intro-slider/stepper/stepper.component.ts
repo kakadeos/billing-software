@@ -10,6 +10,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 export class StepperComponent implements OnInit {
 
   isLinear = false;
+  imagePreview : any;
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
   thirdFormGroup: FormGroup;
@@ -24,7 +25,8 @@ export class StepperComponent implements OnInit {
   ngOnInit() {
     this.firstFormGroup = this._formBuilder.group({
       companyName: ['', Validators.required],
-      companyGSTN: ['', Validators.required]
+      companyGSTN: ['', Validators.required],
+      companyLogo: [null, Validators.required]
     });
     this.secondFormGroup = this._formBuilder.group({
       companyAddressInitial: ['', Validators.required],
@@ -36,6 +38,21 @@ export class StepperComponent implements OnInit {
       companyState: ['', Validators.required],
       companyCountry: ['', Validators.required]
     });
+  }
+
+  onImagePicked(event: Event) {
+    console.log('clicked here');
+    const file = (event.target as HTMLInputElement).files[0];
+    this.firstFormGroup.patchValue({ companyLogo: file });
+
+    this.firstFormGroup.get('companyLogo').updateValueAndValidity();
+    console.log(this.firstFormGroup.get('companyLogo').value);
+    this.passedData.companyLogo = this.firstFormGroup.get('companyLogo').value;
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imagePreview = reader.result as string;
+    };
+    reader.readAsDataURL(file);
   }
 
 }

@@ -9,6 +9,7 @@ const companyInfoSchema = mongoose.Schema({
   companyCountry: {type: String, required: true},
   companyPincode: {type: String, required: true},
   companyGSTN: {type: String, required: true},
+  companyLogoPath: { type:String, required: true},
   companyCreator: {type:mongoose.Schema.Types.ObjectId,ref:'User', required:true}
 });
 

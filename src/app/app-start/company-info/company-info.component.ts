@@ -42,7 +42,7 @@ export class CompanyInfoComponent implements OnInit {
         companyName: companyData.companyName, companyAddressInitial: companyData.companyAddressInitial,
         companyAddressPart2: companyData.companyAddressPart2, companyCity: companyData.companyCity,
         companyPincode: companyData.companyPincode, companyState: companyData.companyState, companyCountry: companyData.companyCountry,
-        companyGSTN: companyData.companyGSTN
+        companyGSTN: companyData.companyGSTN, companyLogo: ''
       };
       this.form.get('CompanyName').setValue(this.CompanyDetails.companyName);
       this.form.get('CompanyAddressInitial').setValue(this.CompanyDetails.companyAddressInitial);
