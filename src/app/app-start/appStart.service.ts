@@ -3,7 +3,7 @@ import { CompanyInfo } from './companyInfo.model';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
-import { Subject } from 'rxjs';
+import { FormControl } from '@angular/forms';
 
 @Injectable({ providedIn: 'root' })
 export class AppStartService {
@@ -15,17 +15,6 @@ export class AppStartService {
     private snackBar: MatSnackBar) { }
 
   saveCompanyInfo(companyData) {
-    const companyInfo: CompanyInfo = {
-      companyName: companyData.companyName,
-      companyAddressInitial: companyData.companyAddressInitial,
-      companyAddressPart2: companyData.companyAddressPart2,
-      companyCity: companyData.companyCity,
-      companyState: companyData.companyState,
-      companyCountry: companyData.companyCountry,
-      companyPincode: companyData.companyPincode,
-      companyGSTN: companyData.companyGSTN,
-      companyLogoPath: companyData.companyLogo
-    };
     const companyDetails = new FormData();
     companyDetails.append('companyName',companyData.companyName);
     companyDetails.append('companyAddressInitial',companyData.companyAddressInitial);
@@ -56,11 +45,37 @@ export class AppStartService {
       companyGSTN: string, companyLogoPath: string}>('http://localhost:3000/api/company/getCompanyProfile');
   }
 
-  updateCompanyProfile(CompanyId: string, CompanyData: CompanyInfo) {
-    this.http.put<{message: string}>('http://localhost:3000/api/company/updateCompanyProfile/' + CompanyId, CompanyData)
+  updateCompanyProfile(CompanyId: string, companyData, companyLogo: File | string) {
+    let companyDetails : CompanyInfo | FormData;
+    if(typeof companyLogo === 'object') {
+    companyDetails = new FormData();
+    companyDetails.append('companyName',companyData.CompanyName);
+    companyDetails.append('companyAddressInitial',companyData.CompanyAddressInitial);
+    companyDetails.append('companyAddressPart2',companyData.CompanyAddressPart2);
+    companyDetails.append('companyCity',companyData.CompanyCity);
+    companyDetails.append('companyState',companyData.CompanyState);
+    companyDetails.append('companyCountry',companyData.CompanyCountry);
+    companyDetails.append('companyPincode',companyData.CompanyPincode);
+    companyDetails.append('companyGSTN',companyData.CompanyGSTN);
+    companyDetails.append('companyLogo',companyData.CompanyLogo, companyData.CompanyName);
+    } else {
+      companyDetails =  {
+        companyName : companyData.CompanyName,
+        companyAddressInitial : companyData.CompanyAddressInitial,
+        companyAddressPart2: companyData.CompanyAddressPart2,
+        companyCity: companyData.CompanyCity,
+        companyState: companyData.CompanyState,
+        companyCountry: companyData.CompanyCountry,
+        companyPincode: companyData.CompanyPincode,
+        companyGSTN: companyData.CompanyGSTN,
+        companyLogoPath: companyLogo
+      }
+    }
+
+    this.http.put<{message: string}>('http://localhost:3000/api/company/updateCompanyProfile/' + CompanyId, companyDetails)
       .subscribe(response => {
         this.snackBar.open(response.message, null, {duration: 3000});
-        this.router.navigate(['/']);
+        // this.router.navigate(['/']);
       },
       error => {
         this.snackBar.open(error.message, null, {duration: 3000});

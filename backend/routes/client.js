@@ -18,7 +18,7 @@ router.post('/addNewClient', checkAuth, (req, res, next) => {
   });
 
   clientInfo.save().then(ClientInfoAdded => {
-    res.status(200).json({message: 'Client Added Successfully'});
+    res.status(200).json({message: 'Client Added Successfully', clientId : ClientInfoAdded._id});
 }).catch(error=> {
     console.log(error);
       return res.status(401).json({

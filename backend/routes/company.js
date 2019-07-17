@@ -80,22 +80,32 @@ router.get('/getCompanyProfile',checkAuth, (req, res, next)=> {
   });
 });
 
-router.put('/updateCompanyProfile/:id',checkAuth, (req,res,next)=>{
+router.put('/updateCompanyProfile/:id',multer({storage : storage}).single("companyLogo"), checkAuth, (req,res,next)=>{
+  let companyLogoPath = req.body.imagePath;
+  if (req.file) {
+    const url = req.protocol + "://" + req.get("host");
+    companyLogoPath = url + "/images/" + req.file.filename
+  }
+  const url = req.protocol + "://" + req.get("host");
+  console.log(req.body);
   const companyInfo = new CompanyInfo({
     _id: req.params.id,
-    companyName: req.body.CompanyName,
-    companyAddressInitial: req.body.CompanyAddressInitial,
-    companyAddressPart2: req.body.CompanyAddressPart2,
-    companyCity: req.body.CompanyCity,
-    companyState: req.body.CompanyState,
-    companyCountry: req.body.CompanyCountry,
-    companyPincode: req.body.CompanyPincode,
-    companyGSTN: req.body.CompanyGSTN,
+    companyName: req.body.companyName,
+    companyAddressInitial: req.body.companyAddressInitial,
+    companyAddressPart2: req.body.companyAddressPart2,
+    companyCity: req.body.companyCity,
+    companyState: req.body.companyState,
+    companyCountry: req.body.companyCountry,
+    companyPincode: req.body.companyPincode,
+    companyGSTN: req.body.companyGSTN,
+    companyLogoPath: companyLogoPath,
     companyCreator: req.userData.userId
   });
   console.log(req.params.id);
+  console.log(companyInfo);
   CompanyInfo.updateOne({_id: req.params.id}, companyInfo)
   .then(result=>{
+    console.log(result.nModified);
     if(result.nModified > 0) {
       res.status(200).json({
         message : 'Company Profile updated successfully',

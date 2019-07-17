@@ -30,9 +30,13 @@ export class ClientManagementService {
       ClientCompanyPincode: CompanyPincode,
       ClientCompanyGSTN: CompanyGSTN
     };
-    this.http.post<{ message: string, result: object }>('http://localhost:3000/api/clients/addNewClient', Client)
+    this.http.post<{ message: string, clientId: string }>('http://localhost:3000/api/clients/addNewClient', Client)
       .subscribe(response => {
         this.snackBar.open(response.message, null, { duration: 3000 });
+        const id = response.clientId;
+        Client.id = id;
+        this.clients.push(Client);
+        this.clientsUpdated.next([...this.clients]);
       },
         (error) => {
           this.msg = error.error.message;

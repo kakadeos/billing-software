@@ -21,6 +21,7 @@ export class CompanyInfoComponent implements OnInit {
   companyPincode: string;
   companyGSTN: string;
   CompanyDetails: CompanyInfo;
+  imageSrc:string;
 
   constructor(private appStartService: AppStartService) { }
 
@@ -33,7 +34,8 @@ export class CompanyInfoComponent implements OnInit {
       'CompanyState': new FormControl('Enter Comapny State'),
       'CompanyCountry': new FormControl('Enter Company Country'),
       'CompanyPincode': new FormControl('Enter Company PinCode'),
-      'CompanyGSTN': new FormControl('Enter Company GSTN')
+      'CompanyGSTN': new FormControl('Enter Company GSTN'),
+      'CompanyLogo': new FormControl('', Validators.required)
     });
     this.appStartService.getCompanyProfile().subscribe(companyData => {
       console.log(companyData);
@@ -42,7 +44,7 @@ export class CompanyInfoComponent implements OnInit {
         companyName: companyData.companyName, companyAddressInitial: companyData.companyAddressInitial,
         companyAddressPart2: companyData.companyAddressPart2, companyCity: companyData.companyCity,
         companyPincode: companyData.companyPincode, companyState: companyData.companyState, companyCountry: companyData.companyCountry,
-        companyGSTN: companyData.companyGSTN, companyLogo: ''
+        companyGSTN: companyData.companyGSTN, companyLogoPath: companyData.companyLogoPath
       };
       this.form.get('CompanyName').setValue(this.CompanyDetails.companyName);
       this.form.get('CompanyAddressInitial').setValue(this.CompanyDetails.companyAddressInitial);
@@ -52,11 +54,30 @@ export class CompanyInfoComponent implements OnInit {
       this.form.get('CompanyCountry').setValue(this.CompanyDetails.companyCountry);
       this.form.get('CompanyPincode').setValue(this.CompanyDetails.companyPincode);
       this.form.get('CompanyGSTN').setValue(this.CompanyDetails.companyGSTN);
+      this.imageSrc = this.CompanyDetails.companyLogoPath;
     });
   }
 
+  onImagePicked(event: Event) {
+    console.log('clicked here');
+    const file = (event.target as HTMLInputElement).files[0];
+    this.form.patchValue({ CompanyLogo: file });
+    this.form.get('CompanyLogo').updateValueAndValidity();
+    console.log(this.form.get('CompanyLogo').value);
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imageSrc = reader.result as string;
+    };
+    reader.readAsDataURL(file);
+  }
+
   editDetails() {
-    this.appStartService.updateCompanyProfile(this.companyId, this.form.value);
+    if(!this.form.get('CompanyLogo').value)
+    {
+      this.form.get('CompanyLogo').setValue(this.imageSrc);
+    }
+    console.log(this.form.get('CompanyLogo').value);
+    this.appStartService.updateCompanyProfile(this.companyId, this.form.value, this.form.get('CompanyLogo').value);
   }
 }
 
