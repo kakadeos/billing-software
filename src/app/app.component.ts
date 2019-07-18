@@ -7,7 +7,7 @@ import { AuthService } from './Auth/auth.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'project-login';
+  title = 'Evolabs Invoice Generation Application';
 
   constructor(public authService: AuthService) {}
 

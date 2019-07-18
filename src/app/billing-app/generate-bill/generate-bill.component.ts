@@ -3,8 +3,9 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { BillingService } from '../billing.service';
 import { AppStartService } from 'src/app/app-start/appStart.service';
 import { Client } from 'src/app/client-store/Client.module';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 import { ClientManagementService } from 'src/app/client-store/ClientManagement.service';
+import { startWith, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-generate-bill',
@@ -52,6 +53,7 @@ export class GenerateBillComponent implements OnInit {
   private clientSub: Subscription;
   myControl: FormControl;
   imageSrc:string;
+  filteredOptions: Observable<Client[]>;
 
   constructor(private billingService: BillingService,
     private appStartService: AppStartService, private clientService: ClientManagementService) { }
@@ -87,9 +89,7 @@ export class GenerateBillComponent implements OnInit {
     });
 
     this.appStartService.getCompanyProfile().subscribe(companyData => {
-
       this.form.get('CompanyName').setValue(companyData.companyName);
-      //this.form.get('CompanyName').disable();
       this.form.get('CompanyAddressInitial').setValue(companyData.companyAddressInitial);
       this.form.get('CompanyAddressPart2').setValue(companyData.companyAddressPart2);
       this.form.get('CompanyCity').setValue(companyData.companyCity);
@@ -97,10 +97,7 @@ export class GenerateBillComponent implements OnInit {
       this.form.get('CompanyCountry').setValue(companyData.companyCountry);
       this.form.get('CompanyPincode').setValue(companyData.companyPincode);
       this.form.get('CompanyGSTN').setValue(companyData.companyGSTN);
-     // this.form.get('CompanyGSTN').disable();
-     this.imageSrc = companyData.companyLogoPath;
-      console.log(companyData);
-      console.log(this.imageSrc);
+      this.imageSrc = companyData.companyLogoPath;
     })
     this.invoiceNumber = 'INV-0004';
     this.toCompanyName = 'Company Name';
@@ -127,8 +124,11 @@ export class GenerateBillComponent implements OnInit {
     this.clientService.getClientList();
     this.clientSub = this.clientService.getClientUpdateListener().subscribe((clients: Client[]) => {
       this.options = clients;
-      console.log(this.options);
-
+      this.filteredOptions = this.myControl.valueChanges
+      .pipe(
+        startWith(''),
+        map(value => value ? this._filter(value) : this.options.slice())
+      );
     });
   }
 
@@ -178,8 +178,6 @@ export class GenerateBillComponent implements OnInit {
   }
 
   generateBill() {
-    console.log(this.form.value);
-    console.log(this.itemList);
     this.billingService.saveInvoice(this.form.value, this.itemList);
   }
 
@@ -206,6 +204,11 @@ export class GenerateBillComponent implements OnInit {
       this.form.get('ToCompanyCountry').setValue('Company Country');
       this.form.get('ToCompanyPincode').setValue('Company Pincode');
       this.form.get('ToCompanyGSTN').setValue('Company GSTN');
+  }
+
+  private _filter(value: string): Client[] {
+    const filterValue = value.toLowerCase();
+    return this.options.filter(client => client.ClientCompanyName.toLowerCase().includes(filterValue));
   }
 
   step = 0;

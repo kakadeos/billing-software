@@ -75,7 +75,6 @@ export class AppStartService {
     this.http.put<{message: string}>('http://localhost:3000/api/company/updateCompanyProfile/' + CompanyId, companyDetails)
       .subscribe(response => {
         this.snackBar.open(response.message, null, {duration: 3000});
-        // this.router.navigate(['/']);
       },
       error => {
         this.snackBar.open(error.message, null, {duration: 3000});

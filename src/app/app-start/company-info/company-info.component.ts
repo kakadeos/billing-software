@@ -38,7 +38,6 @@ export class CompanyInfoComponent implements OnInit {
       'CompanyLogo': new FormControl('', Validators.required)
     });
     this.appStartService.getCompanyProfile().subscribe(companyData => {
-      console.log(companyData);
       this.companyId = companyData._id;
       this.CompanyDetails = {
         companyName: companyData.companyName, companyAddressInitial: companyData.companyAddressInitial,
@@ -59,11 +58,9 @@ export class CompanyInfoComponent implements OnInit {
   }
 
   onImagePicked(event: Event) {
-    console.log('clicked here');
     const file = (event.target as HTMLInputElement).files[0];
     this.form.patchValue({ CompanyLogo: file });
     this.form.get('CompanyLogo').updateValueAndValidity();
-    console.log(this.form.get('CompanyLogo').value);
     const reader = new FileReader();
     reader.onload = () => {
       this.imageSrc = reader.result as string;
@@ -76,7 +73,6 @@ export class CompanyInfoComponent implements OnInit {
     {
       this.form.get('CompanyLogo').setValue(this.imageSrc);
     }
-    console.log(this.form.get('CompanyLogo').value);
     this.appStartService.updateCompanyProfile(this.companyId, this.form.value, this.form.get('CompanyLogo').value);
   }
 }

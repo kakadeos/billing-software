@@ -29,10 +29,12 @@ const storage = multer.diskStorage({
     cb(null, name + "-" + Date.now() + "." + ext);
   }
 });
-router.post('/addCompanyInfo',multer({storage : storage}).single("companyLogo"), checkAuth, (req, res, next) => {
+router.post('/addCompanyInfo', multer({
+  storage: storage
+}).single("companyLogo"), checkAuth, (req, res, next) => {
   const url = req.protocol + "://" + req.get("host");
-  console.log(req.body);
-    const companyInfo = new CompanyInfo({
+  //console.log(req.body);
+  const companyInfo = new CompanyInfo({
     companyName: req.body.companyName,
     companyAddressInitial: req.body.companyAddressInitial,
     companyAddressPart2: req.body.companyAddressPart2,
@@ -46,48 +48,61 @@ router.post('/addCompanyInfo',multer({storage : storage}).single("companyLogo"),
   });
 
   companyInfo.save().then(companyInfoAdded => {
-    console.log(req.userData.userId);
-    User.findOneAndUpdate({_id: req.userData.userId}, {firstLogin: 'false'}).then(
+    //console.log(req.userData.userId);
+    User.findOneAndUpdate({
+      _id: req.userData.userId
+    }, {
+      firstLogin: 'false'
+    }).then(
       response => {
         //res.status(200).json({message: 'Added Company Info Successfully'});
       }
     );
-    res.status(200).json({message: 'Added Company Information Successfully'});
-}).catch(error=> {
-    console.log(error);
-      return res.status(401).json({
-        message: 'Something Went Wrong.'
-      });
+    res.status(200).json({
+      message: 'Added Company Information Successfully'
+    });
+  }).catch(error => {
+    //console.log(error);
+    return res.status(401).json({
+      message: 'Something Went Wrong.'
+    });
   });
 
 });
 
 
-router.get('/getCompanyProfile',checkAuth, (req, res, next)=> {
+router.get('/getCompanyProfile', checkAuth, (req, res, next) => {
   //console.log(req.userData.userId);
-  CompanyInfo.findOne({companyCreator:req.userData.userId}).then(CompanyProfile => {
-    if(CompanyProfile){
-      res.status(200).json(CompanyProfile);
-    } else {
+  CompanyInfo.findOne({
+    companyCreator: req.userData.userId
+  }).then(CompanyProfile => {
+      if (CompanyProfile) {
+        res.status(200).json(CompanyProfile);
+      } else {
+        res.status(400).json({
+          message: 'Company Details Not Found.',
+        });
+      }
+    },
+    error => {
+      //console.log(error);
       res.status(400).json({
-        message : 'Company Details Not Found.',
+        message: 'Something went wrong.',
+        error: error
       });
-    }
-  },
-  error => {
-    console.log(error);
-    res.status(400).json({message: 'Something went wrong.', error: error});
-  });
+    });
 });
 
-router.put('/updateCompanyProfile/:id',multer({storage : storage}).single("companyLogo"), checkAuth, (req,res,next)=>{
+router.put('/updateCompanyProfile/:id', multer({
+  storage: storage
+}).single("companyLogo"), checkAuth, (req, res, next) => {
   let companyLogoPath = req.body.imagePath;
   if (req.file) {
     const url = req.protocol + "://" + req.get("host");
     companyLogoPath = url + "/images/" + req.file.filename
   }
   const url = req.protocol + "://" + req.get("host");
-  console.log(req.body);
+  //console.log(req.body);
   const companyInfo = new CompanyInfo({
     _id: req.params.id,
     companyName: req.body.companyName,
@@ -101,24 +116,29 @@ router.put('/updateCompanyProfile/:id',multer({storage : storage}).single("compa
     companyLogoPath: companyLogoPath,
     companyCreator: req.userData.userId
   });
-  console.log(req.params.id);
-  console.log(companyInfo);
-  CompanyInfo.updateOne({_id: req.params.id}, companyInfo)
-  .then(result=>{
-    console.log(result.nModified);
-    if(result.nModified > 0) {
-      res.status(200).json({
-        message : 'Company Profile updated successfully',
+  //console.log(req.params.id);
+  //console.log(companyInfo);
+  CompanyInfo.updateOne({
+      _id: req.params.id
+    }, companyInfo)
+    .then(result => {
+        //console.log(result.nModified);
+        if (result.nModified > 0) {
+          res.status(200).json({
+            message: 'Company Profile updated successfully',
+          });
+        } else {
+          res.status(200).json({
+            message: 'Nothing is Updated',
+          });
+        }
+      },
+      error => {
+        res.status(401).json({
+          message: 'Something went wrong.',
+          error: error
+        });
       });
-    } else {
-      res.status(200).json({
-        message : 'Nothing is Updated',
-      });
-    }
-  },
-  error => {
-    res.status(401).json({message: 'Something went wrong.', error: error});
-  });
 });
 
 module.exports = router;

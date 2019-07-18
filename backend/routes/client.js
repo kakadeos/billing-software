@@ -4,7 +4,7 @@ const Client = require('../models/client');
 const checkAuth = require('../middleware/check-auth');
 
 router.post('/addNewClient', checkAuth, (req, res, next) => {
-  console.log(req.body);
+  //console.log(req.body);
   const clientInfo = new Client({
     companyName: req.body.ClientCompanyName,
     companyAddressInitial: req.body.ClientCompanyAddressInitial,
@@ -20,16 +20,18 @@ router.post('/addNewClient', checkAuth, (req, res, next) => {
   clientInfo.save().then(ClientInfoAdded => {
     res.status(200).json({message: 'Client Added Successfully', clientId : ClientInfoAdded._id});
 }).catch(error=> {
-    console.log(error);
+    //console.log(error);
       return res.status(401).json({
-        message: 'Something Went Wrong.'
+        message: 'Something Went Wrong. Please try again after some time.'
       });
   });
 
 });
 
 router.get('/getClients',checkAuth, (req, res, next)=> {
+  console.log(req.userData.userId);
   Client.find({clientCreator:req.userData.userId}).then(documents => {
+    console.log(documents);
       res.status(200).json({
       message : 'Clients fetched successfully.',
       clients : documents
@@ -41,7 +43,7 @@ router.get('/getClients',checkAuth, (req, res, next)=> {
 });
 
 router.put('/updateClient/:id',checkAuth,(req,res,next)=>{
-  console.log(req.body);
+  //console.log(req.body);
   const clientInfo = new Client({
     _id : req.body.id,
     companyName: req.body.ClientCompanyName,
@@ -53,15 +55,12 @@ router.put('/updateClient/:id',checkAuth,(req,res,next)=>{
     companyPincode: req.body.ClientCompanyPincode,
     companyGSTN: req.body.ClientCompanyGSTN
   });
-  console.log(clientInfo);
-  console.log(req.params.id);
-  console.log(req.userData.userId);
   Client.updateOne({_id: req.params.id},clientInfo)
   .then(result=>{
-    console.log(result.nModified);
+    //console.log(result.nModified);
     if(result.nModified > 0) {
       res.status(200).json({
-        message : 'client updated successfully',
+        message : 'Client updated Successfully.',
       });
     } else {
       res.status(200).json({
@@ -77,18 +76,16 @@ router.put('/updateClient/:id',checkAuth,(req,res,next)=>{
 
 
 router.delete('/deleteClient/:id',checkAuth,(req,res,next)=>{
-  console.log(req.params.id);
-  console.log(req.userData.userId);
   Client.deleteOne({_id : req.params.id, clientCreator: req.userData.userId})
   .then((result)=>{
-    console.log(result);
+    //console.log(result);
     if(result.n > 0) {
       res.status(200).json({
-        message : 'client deleted successfully',
+        message : 'Client deleted successfully',
       });
     } else {
       res.status(401).json({
-        message : 'some error occured',
+        message : 'Some error occured. Please contact system administrator.',
       });
     }
   },

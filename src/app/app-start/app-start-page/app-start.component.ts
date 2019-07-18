@@ -33,8 +33,7 @@ export class AppStartComponent implements OnInit {
 
   ngOnInit() {
     this.firstLogin = this.authService.getIsItFirstLogin();
-    console.log(this.firstLogin);
-    if(this.firstLogin === 'true') {
+    if(this.firstLogin === 'true' && localStorage.getItem('firstLogin')==='true') {
       this.dialogRef = this.dialog.open(StepperComponent,
         {data: {
         companyName: this.companyName,

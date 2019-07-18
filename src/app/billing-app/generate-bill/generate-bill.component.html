@@ -96,7 +96,7 @@
                  [matAutocomplete]="auto">
                  <button mat-icon-button type='button' (click)='clearClientDetails()' matSuffix><mat-icon>close</mat-icon></button>
                 <mat-autocomplete #auto="matAutocomplete" (optionSelected)='getClientFields($event.option.value)'>
-                  <mat-option *ngFor="let option of options" [value]="option.ClientCompanyName">
+                  <mat-option *ngFor="let option of filteredOptions | async" [value]="option.ClientCompanyName">
                     {{option.ClientCompanyName}}
                   </mat-option>
                 </mat-autocomplete>

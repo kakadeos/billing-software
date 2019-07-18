@@ -53,7 +53,6 @@ export class BillingService {
     )
     )
     .subscribe((TransformedInvoices) => {
-      console.log(TransformedInvoices);
        this.invoices = TransformedInvoices;
        this.invoiceUpdated.next([...this.invoices]);
     });
@@ -64,7 +63,6 @@ export class BillingService {
   }
 
   UpdatePaymentStatus(invoice) {
-      console.log(invoice);
       const invoiceToupdate = invoice;
       var invoicePaymentStatus;
       if(invoice.InvoicePaymentStatus === 'PAID') {
@@ -72,11 +70,9 @@ export class BillingService {
       } else {
         invoicePaymentStatus = 'PAID'
       }
-      console.log(invoicePaymentStatus);
       const paymentStatus = {invoicePaymentStatus:invoicePaymentStatus};
       this.http.put<{message: string}>('http://localhost:3000/api/invoice/updateInvoice/' + invoice._id, paymentStatus)
       .subscribe(response => {
-        console.log(response);
         this.snackBar.open(response.message, null, {duration: 3000});
         const updatedInvoice = [...this.invoices];
         const oldInvoiceIndex = updatedInvoice.findIndex(c => c._id === invoiceToupdate._id);

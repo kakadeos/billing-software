@@ -62,21 +62,26 @@ router.post('/login', (req, res, next) => {
           message: 'Please Enter valid Email ID and Password.'
         });
       }
-      if(fetchedUser != null) {
-        console.log(fetchedUser);
-        const token = jwt.sign({email: fetchedUser.email, userId: fetchedUser._id}, 'PROJECT_LOGIN', {expiresIn: '24h'});
-      res.status(200).json({
-        token: token,
-        expiresIn: 86400,
-        userId: fetchedUser._id,
-        firstLogin: fetchedUser.firstLogin
-      });
+      if (fetchedUser != null) {
+        //console.log(fetchedUser);
+        const token = jwt.sign({
+          email: fetchedUser.email,
+          userId: fetchedUser._id
+        }, 'PROJECT_LOGIN', {
+          expiresIn: '24h'
+        });
+        res.status(200).json({
+          token: token,
+          expiresIn: 86400,
+          userId: fetchedUser._id,
+          firstLogin: fetchedUser.firstLogin
+        });
       }
     })
     .catch(error => {
-      console.log(error);
+      //console.log(error);
       return res.status(401).json({
-        message: 'Auth Failed'
+        message: 'Authentication Failed'
       });
     })
 });
@@ -85,7 +90,7 @@ router.post('/changePassword', checkAuth, (req, res, next) => {
   const userId = req.userData.userId;
   bcrypt.hash(req.body.newPassword, 10)
     .then(hash => {
-        console.log(hash);
+        //console.log(hash);
         User.findByIdAndUpdate(userId, {
           password: hash
         }).then(
@@ -113,7 +118,7 @@ router.post('/changePassword', checkAuth, (req, res, next) => {
 
 router.post('/forgotPassword', (req, res, next) => {
   let fetchedUser;
-  console.log(req.body.emailAddress);
+  //console.log(req.body.emailAddress);
   User.findOne({
     email: req.body.emailAddress
   }).then(
@@ -125,7 +130,7 @@ router.post('/forgotPassword', (req, res, next) => {
       } else {
         fetchedUser = user;
         const randomString = Math.random().toString(36).substring(4);
-        console.log(randomString);
+        //console.log(randomString);
         bcrypt.hash(randomString, 10).then(
           hash => {
             User.findByIdAndUpdate(fetchedUser._id, {
@@ -133,11 +138,17 @@ router.post('/forgotPassword', (req, res, next) => {
               }).then(
                 response => {
                   const result = sendPasswordResetEmail(fetchedUser.email, randomString);
-                      if(!result){
-                        return res.status(400).json({message: 'Oops Error occured. Please try again.', response: response});
-                      } else {
-                        return res.status(200).json({message: 'Password Sent to Email ID.', response: response});
-                      }
+                  if (!result) {
+                    return res.status(400).json({
+                      message: 'Oops Error occured. Please try again.',
+                      response: response
+                    });
+                  } else {
+                    return res.status(200).json({
+                      message: 'Password Sent to Email ID.',
+                      response: response
+                    });
+                  }
                 },
                 error => {
                   return res.status(400).json({

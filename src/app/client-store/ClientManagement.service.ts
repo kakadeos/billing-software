@@ -51,7 +51,6 @@ export class ClientManagementService {
     this.http.get<{ message: string, clients: any }>('http://localhost:3000/api/clients/getClients')
       .pipe(map((clientData) => {
         return clientData.clients.map(client => {
-          //console.log(client);
           return {
             id: client._id,
             ClientCompanyName: client.companyName,
@@ -67,7 +66,6 @@ export class ClientManagementService {
         });
       }))
       .subscribe((TransformedClients) => {
-        //console.log(TransformedClients);
         this.clients = TransformedClients;
         this.clientsUpdated.next([...this.clients]);
       });
@@ -91,7 +89,6 @@ export class ClientManagementService {
       ClientCompanyPincode: CompanyPincode,
       ClientCompanyGSTN: CompanyGSTN
     };
-    console.log(client);
     this.http.put<{ message: string }>('http://localhost:3000/api/clients/updateClient/' + id, client)
       .subscribe(response => {
         this.snackBar.open(response.message, null, { duration: 3000 });
@@ -107,7 +104,6 @@ export class ClientManagementService {
   }
 
   deleteClient(clientId: string) {
-    console.log(clientId);
     this.http.delete<{message: string}>('http://localhost:3000/api/clients/deleteClient/' + clientId)
     .subscribe((responseData) => {
       this.snackBar.open(responseData.message, null, {duration: 3000});

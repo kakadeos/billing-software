@@ -45,7 +45,6 @@ export class AuthService {
     };
     this.http.post<{token:string, expiresIn: number, userId: string, firstLogin: string}>('http://localhost:3000/api/user/login', authData)
     .subscribe(response => {
-      console.log(response);
         const token = response.token;
         this.token = token;
         if(token) {
@@ -126,7 +125,6 @@ export class AuthService {
     }
     const now = new Date();
     const expiresIn = authInformation.expirationInDate.getTime() - now.getTime();
-    console.log(authInformation, expiresIn);
     if(expiresIn > 0) {
       this.token = authInformation.token;
       this.userId = authInformation.userId;

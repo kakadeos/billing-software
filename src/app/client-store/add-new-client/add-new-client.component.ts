@@ -73,7 +73,6 @@ export class AddNewClientComponent implements OnInit {
       const client: Client = this.options.find(v => v.ClientCompanyName === this.form.get('CompanyName').value);
       const companyName = this.form.controls['CompanyName'].value;
       if(client) {
-        //console.log(client);
         this.clientService.updateClient(client.id, companyName,this.form.value.CompanyAddressInitial,
           this.form.value.CompanyAddressPart2,this.form.value.CompanyCity,this.form.value.CompanyPincode,
           this.form.value.CompanyState,this.form.value.CompanyCountry,this.form.value.CompanyGSTN);
@@ -89,7 +88,6 @@ export class AddNewClientComponent implements OnInit {
 
   getClientFields(clientname) {
     const client: Client = this.options.find(v => v.ClientCompanyName === clientname);
-    //console.log(client);
     if (client) {
       this.newOrEditFlag = false;
       this.form.get('CompanyName').setValue(client.ClientCompanyName);

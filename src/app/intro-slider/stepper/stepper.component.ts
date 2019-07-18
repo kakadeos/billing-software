@@ -41,12 +41,9 @@ export class StepperComponent implements OnInit {
   }
 
   onImagePicked(event: Event) {
-    console.log('clicked here');
     const file = (event.target as HTMLInputElement).files[0];
     this.firstFormGroup.patchValue({ companyLogo: file });
-
     this.firstFormGroup.get('companyLogo').updateValueAndValidity();
-    console.log(this.firstFormGroup.get('companyLogo').value);
     this.passedData.companyLogo = this.firstFormGroup.get('companyLogo').value;
     const reader = new FileReader();
     reader.onload = () => {
