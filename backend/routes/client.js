@@ -29,9 +29,9 @@ router.post('/addNewClient', checkAuth, (req, res, next) => {
 });
 
 router.get('/getClients',checkAuth, (req, res, next)=> {
-  console.log(req.userData.userId);
+  //console.log(req.userData.userId);
   Client.find({clientCreator:req.userData.userId}).then(documents => {
-    console.log(documents);
+    //console.log(documents);
       res.status(200).json({
       message : 'Clients fetched successfully.',
       clients : documents

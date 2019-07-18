@@ -22,6 +22,7 @@ export class ViewPreviousInvoicesComponent implements OnInit, AfterViewInit, OnD
   color = 'accent';
   checked = false;
   disabled = false;
+  isLoading = true;
 
   constructor(private billingService: BillingService) { }
 
@@ -30,6 +31,7 @@ export class ViewPreviousInvoicesComponent implements OnInit, AfterViewInit, OnD
     this.invoiceSub = this.billingService.getInvoiceUpdateListener().subscribe((invoices: Invoice[]) => {
       console.log(invoices);
       this.dataSource.data = invoices;
+      this.isLoading = false;
     });
   }
 

@@ -5,7 +5,7 @@ import { AppStartService } from 'src/app/app-start/appStart.service';
 import { Client } from 'src/app/client-store/Client.module';
 import { Subscription, Observable } from 'rxjs';
 import { ClientManagementService } from 'src/app/client-store/ClientManagement.service';
-import { startWith, map } from 'rxjs/operators';
+import { startWith, map, timeInterval } from 'rxjs/operators';
 
 @Component({
   selector: 'app-generate-bill',
@@ -54,6 +54,7 @@ export class GenerateBillComponent implements OnInit {
   myControl: FormControl;
   imageSrc:string;
   filteredOptions: Observable<Client[]>;
+  isLoading = true;
 
   constructor(private billingService: BillingService,
     private appStartService: AppStartService, private clientService: ClientManagementService) { }
@@ -124,6 +125,7 @@ export class GenerateBillComponent implements OnInit {
     this.clientService.getClientList();
     this.clientSub = this.clientService.getClientUpdateListener().subscribe((clients: Client[]) => {
       this.options = clients;
+      this.isLoading = false;
       this.filteredOptions = this.myControl.valueChanges
       .pipe(
         startWith(''),

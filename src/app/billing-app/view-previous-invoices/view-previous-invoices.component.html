@@ -1,5 +1,12 @@
+
+<div fxLayoutAlign='center center'  *ngIf="isLoading">
+  <mat-spinner></mat-spinner>
+</div>
 <div fxLayout='row'>
   <br>
+</div>
+<div fxLayoutAlign='center center'  *ngIf="dataSource.data.length <= 0 && !isLoading">
+  <p>Nothing to display</p>
 </div>
 <div fxLayoutAlign='center center'  *ngIf="dataSource.data.length > 0 && !isLoading">
   <mat-form-field fxFlex='40%'>
@@ -9,7 +16,7 @@
 <div fxLayout='row'>
     <br>
 </div>
-<div class="example-container mat-elevation-z1">
+<div class="example-container mat-elevation-z1"  *ngIf="dataSource.data.length > 0 && !isLoading">
     <mat-table [dataSource]='dataSource' matSort>
         <ng-container matColumnDef='InvoiceNumber'>
             <mat-header-cell mat-sort-header *matHeaderCellDef >Invoice Number</mat-header-cell>
@@ -57,4 +64,4 @@
         <mat-row *matRowDef='let row; columns: displayedColumns;'></mat-row>
       </mat-table>
 </div>
-<mat-paginator [pageSize]="10" [pageSizeOptions]="[1, 5, 10]"></mat-paginator>
+<mat-paginator [pageSize]="10" [pageSizeOptions]="[1, 5, 10]"  *ngIf="dataSource.data.length > 0"></mat-paginator>
