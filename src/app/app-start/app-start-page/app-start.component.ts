@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { StepperComponent } from '../intro-slider/stepper/stepper.component';
-import { AuthService } from '../Auth/auth.service';
+
 import { Subscription } from 'rxjs';
-import { AppStartService } from './appStart.service';
+import { StepperComponent } from 'src/app/intro-slider/stepper/stepper.component';
+import { AuthService } from 'src/app/Auth/auth.service';
+import { AppStartService } from '../appStart.service';
 
 @Component({
   selector: 'app-app-start',

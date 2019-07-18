@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './Auth/login/login.component';
 import { SignupComponent } from './Auth/signup/signup.component';
-import { AppStartComponent } from './app-start/app-start.component';
+
 import { AuthGuard } from './Auth/auth.guard';
 import { ChangePasswordComponent } from './Auth/change-password/change-password.component';
 import { GenerateBillComponent } from './billing-app/generate-bill/generate-bill.component';
@@ -10,6 +10,7 @@ import { ViewPreviousInvoicesComponent } from './billing-app/view-previous-invoi
 import { StepperComponent } from './intro-slider/stepper/stepper.component';
 import { CompanyInfoComponent } from './app-start/company-info/company-info.component';
 import { AddNewClientComponent } from './client-store/add-new-client/add-new-client.component';
+import { AppStartComponent } from './app-start/app-start-page/app-start.component';
 
 const routes: Routes = [
   {path: '', component:AppStartComponent, canActivate: [AuthGuard]},

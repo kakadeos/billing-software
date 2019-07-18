@@ -8,7 +8,7 @@ import { AppComponent } from './app.component';
 import { MaterialModule } from './material.module';
 import { LoginComponent } from './Auth/login/login.component';
 import { SignupComponent } from './Auth/signup/signup.component';
-import { AppStartComponent } from './app-start/app-start.component';
+import { AppStartComponent } from './app-start/app-start-page/app-start.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HeaderComponent } from './navigation/header/header.component';
 import { SidenavComponent } from './navigation/sidenav/sidenav.component';
