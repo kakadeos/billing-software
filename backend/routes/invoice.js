@@ -70,7 +70,7 @@ router.put('/updateInvoice/:id', checkAuth, (req, res, next) => {
 
         if (result.nModified > 0) {
           res.status(200).json({
-            message: 'updated successfully.',
+            message: 'Invoice Payment Status updated Successfully.',
           });
         } else {
           res.status(200).json({
