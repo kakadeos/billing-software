@@ -4,7 +4,7 @@
         fxLayoutGap='1%'>
         <div fxLayout.xs='column' fxLayout='column' fxLayoutAlign='center center' fxLayoutGap='10px'>
             <img [src]='imageSrc' height='75px' width='75px'>
-            <button mat-stroked-button type="button" (click)="filePicker.click()">Update Logo</button>
+            <button mat-stroked-button type="button" (click)="filePicker.click()">Change Logo</button>
             <input type="file" #filePicker (change)="onImagePicked($event)">
         </div>
         <div fxLayout.xs='column'  fxLayoutGap='10px'>
