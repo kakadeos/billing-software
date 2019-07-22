@@ -4,13 +4,6 @@ const checkAuth = require('../middleware/check-auth');
 const multer = require('multer');
 const fs = require('fs');
 
-
-var api_key = 'key-425de87d2381d7ee4de94e584666389f';
-var domain = 'airlock.in';
-
-const mailgun = require("mailgun-js");
-const mg = mailgun({apiKey: api_key, domain: domain});
-
 const storage = multer.diskStorage({
   destination: (req,file,cb) => {
     cb(null, 'backend/emailData');

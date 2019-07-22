@@ -2,7 +2,6 @@
     <div fxLayout='column' fxLayoutGap='10px' fxLayoutAlign='center center'><br><br></div>
     <mat-card fxLayout='column' fxLayoutGap='10px' fxLayoutAlign='center center'>
           <mat-card-content>
-              <span>* indicates the required fields</span>
               <form [formGroup]='form' (submit)='emailSend()' fxLayout='column' fxLayoutGap='10px' fxLayoutAlign='center center'>
                   <mat-form-field>
                     <input placeholder="To"  type="text" matInput formControlName="EmailIDTo">
@@ -26,7 +25,7 @@
                       <mat-error *ngIf="form.get('EmailIDBcc').hasError('email')">Please Enter valid Email ID for Bcc.</mat-error>
                   </mat-form-field>
                   <mat-form-field>
-                      <input placeholder="Email Subject*"  type="text" matInput formControlName="EmailSubject">
+                      <input placeholder="Email Subject"  type="text" matInput formControlName="EmailSubject">
                       <mat-error *ngIf="form.get('EmailSubject').hasError('required')">Email Subject is required.</mat-error>
                       <mat-error *ngIf="form.get('EmailSubject').hasError('minlength')">Email Subject must be at least 3 characters long.</mat-error>
                   </mat-form-field>
@@ -40,7 +39,7 @@
                       <button type='button' mat-icon-button (click)='clearAttachmentFile()' *ngIf="form.get('EmailAttachment').value && clearAttachmentFileIcon"><mat-icon>clear</mat-icon></button>
                   </div>
                   <mat-form-field>
-                      <textarea matInput placeholder="Email Content*" rows="5" cols="50" formControlName="EmailContent"></textarea>
+                      <textarea matInput placeholder="Email Content" rows="5" cols="50" formControlName="EmailContent"></textarea>
                       <mat-error *ngIf="form.get('EmailContent').invalid">Email Content is required.</mat-error>
                   </mat-form-field>
                   <div>

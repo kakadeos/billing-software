@@ -26,7 +26,6 @@ export class EmailService {
       this.http.post<{message: string}>('http://localhost:3000/api/email/emailSend', emailData)
     .subscribe(response => {
       this.snackBar.open(response.message, null, {duration: 3000});
-      this.router.navigate(['/emailSend'])
     });
   }
   private emailList= [];

@@ -45,20 +45,16 @@ export class EmailSendComponent implements OnInit {
       this.attachmentName = '';
       this.formError = 'Please specify all the Required Fields';
       return;
+    } else {
+      this.emailService.sendEmail(this.form.value.EmailIDTo, this.form.value.EmailIDCc, this.form.value.EmailIDBcc, this.form.value.EmailSubject,
+        this.form.value.EmailContent,this.form.value.EmailExcel, this.form.value.EmailAttachment);
+        this.form.reset();
+        this.fileName = '';
+        this.attachmentName =  '';
+        Object.keys(this.form.controls).forEach(key => {
+          this.form.get(key).setErrors(null) ;
+        });
     }
-    if(this.form.value.EmailIDTo === null || this.form.value.EmailExcel === null) {
-      this.formError = 'Please attach valid Receipient list and add required data';
-      return;
-    }
-
-    this.emailService.sendEmail(this.form.value.EmailIDTo, this.form.value.EmailIDCc, this.form.value.EmailIDBcc, this.form.value.EmailSubject,
-    this.form.value.EmailContent,this.form.value.EmailExcel, this.form.value.EmailAttachment);
-    this.form.reset();
-    this.fileName = '';
-    this.attachmentName =  '';
-    Object.keys(this.form.controls).forEach(key => {
-      this.form.get(key).setErrors(null) ;
-    });
   }
 
   onFilePicked(event: Event) {
