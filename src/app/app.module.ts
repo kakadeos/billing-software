@@ -21,6 +21,12 @@ import { ViewPreviousInvoicesComponent } from './billing-app/view-previous-invoi
 import { StepperComponent } from './intro-slider/stepper/stepper.component';
 import { CompanyInfoComponent } from './app-start/company-info/company-info.component';
 import { AddNewClientComponent } from './client-store/add-new-client/add-new-client.component';
+import { EmailSendComponent } from './email/email-send/email-send.component';
+import { EmailHistoryComponent } from './email/email-history/email-history.component';
+import { SmsSendComponent } from './sms/sms-send/sms-send.component';
+import { SmsHistoryComponent } from './sms/sms-history/sms-history.component';
+import { ViewPendingListComponent } from './email/view-pending-list/view-pending-list.component';
+import { EmailFilterPipe } from './email/email-filter.pipe';
 
 @NgModule({
   declarations: [
@@ -36,7 +42,13 @@ import { AddNewClientComponent } from './client-store/add-new-client/add-new-cli
     ViewPreviousInvoicesComponent,
     StepperComponent,
     CompanyInfoComponent,
-    AddNewClientComponent
+    AddNewClientComponent,
+    EmailSendComponent,
+    EmailHistoryComponent,
+    SmsSendComponent,
+    SmsHistoryComponent,
+    ViewPendingListComponent,
+    EmailFilterPipe
   ],
   imports: [
     BrowserModule,
@@ -50,6 +62,6 @@ import { AddNewClientComponent } from './client-store/add-new-client/add-new-cli
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
   bootstrap: [AppComponent],
-  entryComponents: [ForgotPasswordComponent, StepperComponent]
+  entryComponents: [ForgotPasswordComponent, StepperComponent, ViewPendingListComponent]
 })
 export class AppModule { }

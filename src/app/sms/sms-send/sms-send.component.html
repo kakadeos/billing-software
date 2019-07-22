@@ -1,0 +1,33 @@
+<section class="email-send-form" fxLayout='column' fxLayoutGap='10px' fxLayoutAlign='center center'>
+    <div fxLayout='column' fxLayoutGap='10px' fxLayoutAlign='center center'><br><br></div>
+    <mat-card fxLayout='column' fxLayoutGap='10px' fxLayoutAlign='center center'>
+          <mat-card-header>
+            <h1> Send Bulk SMS </h1>
+            <br><br>
+          </mat-card-header>
+          <mat-card-content>
+              <form [formGroup]='form' (submit)='smsSend()' fxLayout='column' fxLayoutGap='10px' fxLayoutAlign='center center'>
+                <label for="SMSTo">Select List of Recipients : </label>
+                  <div fxLayoutAlign='center'>
+                    <button mat-stroked-button type='button' (click)='filePicker.click()' [disabled]="form.get('SmsExcel').value || !form.get('SmsExcel').value ===null">Attach List of Recipients</button>
+                    <input type="file"  #filePicker (change)='onFilePicked($event)'><br>
+                  </div>
+                  <div>
+                      <mat-error *ngIf="excelPickerClicked && form.get('SmsExcel').invalid">This is not a correct file type.</mat-error>
+                      {{fileName}}
+                      <button type='button' mat-icon-button (click)='clearSelectedFile()' *ngIf="form.get('SmsExcel').value && clearIcon"><mat-icon>clear</mat-icon></button>
+                  </div>
+
+                  <mat-form-field>
+                      <textarea matInput placeholder="Enter Text Here" rows="5" cols="50" formControlName="SmsContent"></textarea>
+                      <mat-error *ngIf="form.get('SmsContent').invalid">Email Content is required.</mat-error>
+                  </mat-form-field>
+                  <div fxLayout="row" fxLayoutGap='3%'>
+                    <button mat-raised-button color='accent' type='submit' [disabled]='!form.valid'>Send</button>
+                    <button mat-raised-button color='accent' type='button' (click)='resetForm()' [disabled]='form.untouched'>Reset</button>
+                </div>
+                </form>
+          </mat-card-content>
+    </mat-card>
+    <div fxLayout='column' fxLayoutGap='10px' fxLayoutAlign='center center'><br><br></div>
+  </section>

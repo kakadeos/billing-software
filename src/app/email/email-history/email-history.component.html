@@ -1,0 +1,12 @@
+<section fxLayoutAlign='center center'>
+    <table id='emailtable'>
+        <tr>
+          <th>Email Subject</th>
+          <th>List Of Not Deliverd EmailID's</th>
+        </tr>
+        <tr *ngFor="let item of keys">
+          <td>{{item}}</td>
+          <td><button type='button' mat-raised-button color='primary' (click)='getEmailList(item)'>Click Here</button></td>
+        </tr>
+      </table>
+</section>

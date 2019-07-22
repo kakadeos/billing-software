@@ -1,0 +1,16 @@
+<div fxLayoutAlign='center center' >
+    <mat-form-field fxFlex='40%'>
+      <input matInput type="text" [(ngModel)]='search' placeholder="Search for EmailID">
+    </mat-form-field>
+</div>
+<section fxLayout='column' fxLayoutGap='10px' fxLayoutAlign='center center'>
+          <h1>Email Not received by</h1>
+          <table>
+            <tr *ngFor="let item of passedData.emailList | emailFilter:search">
+              <td>{{item}}</td>
+            </tr>
+          </table>
+          <div fxLayout='row'>
+            <button mat-raised-button color='primary' [mat-dialog-close]='false'>Close</button>
+          </div>
+</section>

@@ -1,0 +1,57 @@
+<section class="email-send-form" fxLayout='column' fxLayoutGap='10px' fxLayoutAlign='center center'>
+    <div fxLayout='column' fxLayoutGap='10px' fxLayoutAlign='center center'><br><br></div>
+    <mat-card fxLayout='column' fxLayoutGap='10px' fxLayoutAlign='center center'>
+          <mat-card-content>
+              <span>* indicates the required fields</span>
+              <form [formGroup]='form' (submit)='emailSend()' fxLayout='column' fxLayoutGap='10px' fxLayoutAlign='center center'>
+                  <mat-form-field>
+                    <input placeholder="To"  type="text" matInput formControlName="EmailIDTo">
+                    <mat-error *ngIf="form.get('EmailIDTo').hasError('email')">Please Enter valid Recipient.</mat-error>
+                  </mat-form-field>
+                  <div fxLayoutAlign='center'>
+                    <button mat-stroked-button type='button' (click)='filePicker.click()' [disabled]="form.get('EmailIDTo').value || !form.get('EmailIDTo').value ===null">Attach List of Recipients</button>
+                    <input type="file"  #filePicker (change)='onFilePicked($event)'><br>
+                  </div>
+                  <div>
+                      <mat-error *ngIf="excelPickerClicked && form.get('EmailExcel').invalid">This is not a correct file type.</mat-error>
+                      {{fileName}}
+                      <button type='button' mat-icon-button (click)='clearSelectedFile()' *ngIf="form.get('EmailExcel').value && clearIcon"><mat-icon>clear</mat-icon></button>
+                  </div>
+                  <mat-form-field>
+                      <input placeholder="Cc"  type="text" matInput formControlName="EmailIDCc">
+                      <mat-error *ngIf="form.get('EmailIDCc').hasError('email')">Please Enter valid Email ID for Cc.</mat-error>
+                  </mat-form-field>
+                  <mat-form-field>
+                      <input placeholder="Bcc"  type="text" matInput formControlName="EmailIDBcc">
+                      <mat-error *ngIf="form.get('EmailIDBcc').hasError('email')">Please Enter valid Email ID for Bcc.</mat-error>
+                  </mat-form-field>
+                  <mat-form-field>
+                      <input placeholder="Email Subject*"  type="text" matInput formControlName="EmailSubject">
+                      <mat-error *ngIf="form.get('EmailSubject').hasError('required')">Email Subject is required.</mat-error>
+                      <mat-error *ngIf="form.get('EmailSubject').hasError('minlength')">Email Subject must be at least 3 characters long.</mat-error>
+                  </mat-form-field>
+                  <div fxLayoutAlign='center'>
+                      <button mat-stroked-button type='button' (click)='attachementPicker.click()'>Add Attachment</button>
+                      <input type="file"  #attachementPicker (change)='onAttachementPick($event)'><br>
+                  </div>
+                  <div>
+                      <mat-error *ngIf="attachmentPickerClicked && form.get('EmailAttachment').invalid">This is not a correct file type.</mat-error>
+                      {{attachmentName}}
+                      <button type='button' mat-icon-button (click)='clearAttachmentFile()' *ngIf="form.get('EmailAttachment').value && clearAttachmentFileIcon"><mat-icon>clear</mat-icon></button>
+                  </div>
+                  <mat-form-field>
+                      <textarea matInput placeholder="Email Content*" rows="5" cols="50" formControlName="EmailContent"></textarea>
+                      <mat-error *ngIf="form.get('EmailContent').invalid">Email Content is required.</mat-error>
+                  </mat-form-field>
+                  <div>
+                    <span *ngIf="formError != ''">{{formError}}</span>
+                  </div>
+                  <div fxLayout="row" fxLayoutGap='3%'>
+                    <button mat-raised-button color='accent' type='submit' >Send</button>
+                    <button mat-raised-button color='accent' type='button' (click)='resetForm()'>Reset</button>
+                </div>
+                </form>
+          </mat-card-content>
+    </mat-card>
+    <div fxLayout='column' fxLayoutGap='10px' fxLayoutAlign='center center'><br><br></div>
+  </section>
