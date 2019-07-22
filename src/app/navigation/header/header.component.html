@@ -1,41 +1,34 @@
 <mat-toolbar color='primary'>
-    <div fxHide.gt-xs>
-      <button mat-icon-button (click)='onToggleSideNav()'>
-        <mat-icon>menu</mat-icon>
-      </button>
-    </div>
-    <div>
-      <a routerLink='/'>Logo</a>
-    </div>
-    <div fxFlex fxLayout fxLayoutAlign='flex-end'>
-      <ul fxLayout  class='navigation-list' fxLayoutGap='10px' fxHide.xs>
-        <li *ngIf='userIsAuthenticated'>
-          <a routerLink='/'>Home</a>
-        </li>
-        <li *ngIf='!userIsAuthenticated'>
-          <a routerLink='/login'>Login</a>
-        </li>
-        <li *ngIf='!userIsAuthenticated'>
-          <a routerLink='/signup'>Signup</a>
-        </li>
-        <li *ngIf='userIsAuthenticated'>
-          <a routerLink='/createBill'>Create Bill</a>
-        </li>
-        <li *ngIf='userIsAuthenticated'>
-          <a routerLink='/viewBills'>View Bill</a>
-        </li>
-        <li *ngIf='userIsAuthenticated'>
-          <a routerLink='/viewCompanyProfile'>Company Profile</a>
-        </li>
-        <li *ngIf='userIsAuthenticated'>
-          <a routerLink='/addNewClient'>Add New Client</a>
-        </li>
-        <li *ngIf='userIsAuthenticated'>
-          <a routerLink='/changePassword'>Change Password</a>
-        </li>
-        <li *ngIf='userIsAuthenticated'>
-          <a (click)='onLogout()'>Logout</a>
-        </li>
-      </ul>
-    </div>
-  </mat-toolbar>
+  <div fxHide.gt-xs>
+    <button mat-icon-button (click)='onToggleSideNav()'>
+      <mat-icon>menu</mat-icon>
+    </button>
+  </div>
+  <div>
+    <a routerLink='/'>Logo</a>
+  </div>
+  <div fxFlex fxLayout fxLayoutAlign='flex-end' fxLayoutGap='10px' fxHide.xs>
+    <a mat-button routerLink='/'>Home</a>
+    <button mat-button [matMenuTriggerFor]="invoiceMenu">Invoice Management</button>
+    <mat-menu #invoiceMenu="matMenu" yPosition="below">
+      <a routerLink='/createBill' mat-menu-item>New Invoice</a>
+      <a routerLink='/viewBills' mat-menu-item>View Invoices</a>
+    </mat-menu>
+    <button mat-button [matMenuTriggerFor]="emailMenu">Email Management</button>
+    <mat-menu #emailMenu="matMenu" yPosition="below">
+      <a routerLink='/sendEmail' mat-menu-item>Send Email</a>
+      <a routerLink='/viewEmail' mat-menu-item>View Email</a>
+    </mat-menu>
+    <button mat-button [matMenuTriggerFor]="smsMenu">SMS Management</button>
+    <mat-menu #smsMenu="matMenu" yPosition="below">
+      <a routerLink='/sendSMS' mat-menu-item>Send SMS</a>
+      <a routerLink='/viewSMS' mat-menu-item>View SMS</a>
+    </mat-menu>
+    <button mat-button [matMenuTriggerFor]="myAccount">My Account</button>
+    <mat-menu #myAccount="matMenu" yPosition="below">
+      <a routerLink='/viewCompanyProfile' mat-menu-item>Company Profile</a>
+      <a routerLink='/changePassword' mat-menu-item>Change Password</a>
+      <a (click)='onLogout()' mat-menu-item>Logout</a>
+    </mat-menu>
+  </div>
+</mat-toolbar>
