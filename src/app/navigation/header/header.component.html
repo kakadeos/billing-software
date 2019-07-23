@@ -24,6 +24,11 @@
       <a routerLink='/sendSMS' mat-menu-item>Send SMS</a>
       <a routerLink='/viewSMS' mat-menu-item>View SMS</a>
     </mat-menu>
+    <button mat-button [matMenuTriggerFor]="clientMgmt">Client Management</button>
+    <mat-menu #clientMgmt="matMenu" yPosition="below">
+      <a routerLink='/addNewClient' mat-menu-item>Manage Client</a>
+      <a routerLink='/uploadClientExcel' mat-menu-item>Upload Client Excel</a>
+    </mat-menu>
     <button mat-button [matMenuTriggerFor]="myAccount">My Account</button>
     <mat-menu #myAccount="matMenu" yPosition="below">
       <a routerLink='/viewCompanyProfile' mat-menu-item>Company Profile</a>

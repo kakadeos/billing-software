@@ -2,6 +2,19 @@ const express = require('express');
 const router = express.Router();
 const Client = require('../models/client');
 const checkAuth = require('../middleware/check-auth');
+const multer = require('multer');
+const fs = require('fs');
+
+const storage = multer.diskStorage({
+  destination: (req,file,cb) => {
+    cb(null, 'backend/clientData');
+  },
+  filename: (req, file, cb) => {
+    const name = file.originalname
+    cb(null, name);
+  }
+});
+
 
 router.post('/addNewClient', checkAuth, (req, res, next) => {
   //console.log(req.body);
@@ -92,6 +105,13 @@ router.delete('/deleteClient/:id',checkAuth,(req,res,next)=>{
   error => {
     res.status(400).json({message: 'Something went wrong.', error: error});
   });
+});
+
+
+router.post('/uploadClientExcel', checkAuth, multer({storage: storage}).single('ClientExcelList'), (req,res,next)=>{
+  console.log(req.file);
+  console.log("Client Excel file come here and store inside clientData Folder");
+  res.status(200).json({message:'Data Received Successfully'});
 });
 
 module.exports = router;

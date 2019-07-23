@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { SmsService } from '../sms.service';
+import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { EXCEL_FILE_VALIDATOR } from 'src/app/email/email-send/mime-type.validator';
+import { ClientManagementService } from '../ClientManagement.service';
 
 @Component({
-  selector: 'app-sms-send',
-  templateUrl: './sms-send.component.html',
-  styleUrls: ['./sms-send.component.css']
+  selector: 'app-upload-bulk-client',
+  templateUrl: './upload-bulk-client.component.html',
+  styleUrls: ['./upload-bulk-client.component.css']
 })
-export class SmsSendComponent implements OnInit {
+export class UploadBulkClientComponent implements OnInit {
+
 
   fileName: string;
   attachmentName: string;
@@ -20,35 +21,35 @@ export class SmsSendComponent implements OnInit {
   clearAttachmentFileIcon = false;
 
 
-  constructor(public smsService: SmsService) { }
+  constructor(private clientService: ClientManagementService) { }
 
   ngOnInit() {
     this.form = new FormGroup({
-      'SmsExcel': new FormControl(null, {validators: [], asyncValidators: [EXCEL_FILE_VALIDATOR]}),
-      'SmsContent': new FormControl(null, {validators:[Validators.required, Validators.minLength(3)]})
+      'ClientExcel': new FormControl(null, {validators: [], asyncValidators: [EXCEL_FILE_VALIDATOR]})
     });
   }
 
-  smsSend() {
+  clientUpload() {
     if(this.form.invalid) {
       this.form.reset();
       this.fileName = '';
       return;
     }
-    console.log(this.form.value.SmsExcel);
-    this.smsService.smsSend(this.form.value.SmsExcel, this.form.value.SmsContent);
+    else {
+    this.clientService.uploadClientList(this.form.value.ClientExcel);
     this.form.reset();
     this.fileName = '';
     Object.keys(this.form.controls).forEach(key => {
       this.form.get(key).setErrors(null) ;
     });
+    }
   }
 
   onFilePicked(event: Event) {
     this.excelPickerClicked = true;
     const file = (event.target as HTMLInputElement).files[0];
-    this.form.patchValue({SmsExcel : file});
-    this.form.get('SmsExcel').updateValueAndValidity();
+    this.form.patchValue({ClientExcel : file});
+    this.form.get('ClientExcel').updateValueAndValidity();
     if(file !== null) {
       const reader = new FileReader();
       reader.onload = () => {
@@ -61,8 +62,8 @@ export class SmsSendComponent implements OnInit {
   }
 
   clearSelectedFile() {
-    this.form.get('SmsExcel').setValue(null);
-    this.form.get('SmsExcel').setErrors(null);
+    this.form.get('ClientExcel').setValue(null);
+    this.form.get('ClientExcel').setErrors(null);
     this.fileName = '';
     this.clearIcon = false;
   }
@@ -71,4 +72,5 @@ export class SmsSendComponent implements OnInit {
     this.form.reset();
     this.fileName = '';
   }
+
 }

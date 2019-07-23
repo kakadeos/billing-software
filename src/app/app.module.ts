@@ -27,6 +27,7 @@ import { SmsSendComponent } from './sms/sms-send/sms-send.component';
 import { SmsHistoryComponent } from './sms/sms-history/sms-history.component';
 import { ViewPendingListComponent } from './email/view-pending-list/view-pending-list.component';
 import { EmailFilterPipe } from './email/email-filter.pipe';
+import { UploadBulkClientComponent } from './client-store/upload-bulk-client/upload-bulk-client.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { EmailFilterPipe } from './email/email-filter.pipe';
     SmsSendComponent,
     SmsHistoryComponent,
     ViewPendingListComponent,
-    EmailFilterPipe
+    EmailFilterPipe,
+    UploadBulkClientComponent
   ],
   imports: [
     BrowserModule,

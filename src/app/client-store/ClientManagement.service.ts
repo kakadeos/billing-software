@@ -115,4 +115,14 @@ export class ClientManagementService {
       this.snackBar.open(error.message, null, {duration: 3000});
     });
   }
+
+  uploadClientList (ClientExcel: File) {
+    console.log(ClientExcel);
+    const clientSend = new FormData();
+    clientSend.append('ClientExcelList' ,ClientExcel);
+    this.http.post<{message: string}>('http://localhost:3000/api/clients/uploadClientExcel', clientSend)
+  .subscribe(response => {
+    this.snackBar.open(response.message, null, {duration: 3000});
+  })
+}
 }

@@ -1,0 +1,27 @@
+<section class="email-send-form" fxLayout='column' fxLayoutGap='10px' fxLayoutAlign='center center'>
+  <div fxLayout='column' fxLayoutGap='10px' fxLayoutAlign='center center'><br><br></div>
+  <mat-card fxLayout='column' fxLayoutGap='10px' fxLayoutAlign='center center'>
+        <mat-card-header>
+          <h1> Upload Client List </h1>
+          <br><br>
+        </mat-card-header>
+        <mat-card-content>
+            <form [formGroup]='form' (submit)='clientUpload()' fxLayout='column' fxLayoutGap='10px' fxLayoutAlign='center center'>
+              <label for="SMSTo">Select Excel File </label>
+                <div fxLayoutAlign='center'>
+                  <button mat-stroked-button type='button' (click)='filePicker.click()' [disabled]="form.get('ClientExcel').value || !form.get('ClientExcel').value ===null">Attach List of Recipients</button>
+                  <input type="file"  #filePicker (change)='onFilePicked($event)'><br>
+                </div>
+                <div>
+                    <mat-error *ngIf="excelPickerClicked && form.get('ClientExcel').invalid">This is not a correct file type.</mat-error>
+                    {{fileName}}
+                    <button type='button' mat-icon-button (click)='clearSelectedFile()' *ngIf="form.get('ClientExcel').value && clearIcon"><mat-icon>clear</mat-icon></button>
+                </div>
+                <div fxLayout="row" fxLayoutGap='3%'>
+                  <button mat-raised-button color='primary' type='submit' [disabled]='!form.valid'>Send</button>
+              </div>
+              </form>
+        </mat-card-content>
+  </mat-card>
+  <div fxLayout='column' fxLayoutGap='10px' fxLayoutAlign='center center'><br><br></div>
+</section>
