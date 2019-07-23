@@ -1,40 +1,119 @@
 <mat-nav-list>
-    <a mat-list-item *ngIf='!userIsAuthenticated' routerLink='/' (click)='onClose()'>
-      <mat-icon>home</mat-icon>
-      <span class='nav-caption'>Home</span>
-    </a>
-    <a mat-list-item routerLink='/login' *ngIf='!userIsAuthenticated' (click)='onClose()'>
-      <mat-icon>input</mat-icon>
-      <span class='nav-caption'>Login</span>
-    </a>
-    <a mat-list-item routerLink='/signup' *ngIf='!userIsAuthenticated' (click)='onClose()'>
-      <mat-icon>face</mat-icon>
-      <span class='nav-caption'>Signup</span>
-    </a>
-    <a mat-list-item routerLink='/createBill' *ngIf='userIsAuthenticated' (click)='onClose()'>
-      <mat-icon>verified_user</mat-icon>
-      <span class='nav-caption'>Create Bill</span>
-    </a>
-    <a mat-list-item routerLink='/viewBills' *ngIf='userIsAuthenticated' (click)='onClose()'>
-      <mat-icon>autorenew</mat-icon>
-      <span class='nav-caption'>View Bills</span>
-    </a>
-    <a mat-list-item routerLink='/viewCompanyProfile' *ngIf='!userIsAuthenticated' (click)='onClose()'>
-      <mat-icon>input</mat-icon>
-      <span class='nav-caption'>Company Profile</span>
-    </a>
-    <a mat-list-item routerLink='/addNewClient' *ngIf='userIsAuthenticated' (click)='onClose()'>
-      <mat-icon>autorenew</mat-icon>
-      <span class='nav-caption'>Add New Client</span>
-    </a>
-    <a mat-list-item routerLink='/changePassword' *ngIf='userIsAuthenticated' (click)='onClose()'>
-      <mat-icon>autorenew</mat-icon>
-      <span class='nav-caption'>Change Password</span>
-    </a>
-    <mat-list-item *ngIf='userIsAuthenticated'>
+  <a mat-list-item routerLink='/login' *ngIf='!userIsAuthenticated' (click)='onClose()'>
+    <mat-icon>input</mat-icon>
+    <span class='nav-caption'>Login</span>
+  </a>
+  <a mat-list-item routerLink='/signup' *ngIf='!userIsAuthenticated' (click)='onClose()'>
+    <mat-icon>face</mat-icon>
+    <span class='nav-caption'>Signup</span>
+  </a>
+  <div mat-list class='mat-list-primary-menu' *ngIf='userIsAuthenticated'>
+    <span fxLayout (click)='hideSubMenu(1)'>
+      <span>Invoice Management</span>
+      <span class="example-fill-remaining-space"></span>
+      <span fxLayoutAlign='right'>
+        <mat-icon>keyboard_arrow_down</mat-icon>
+      </span>
+    </span>
+    <div *ngIf='invoiceSubMenu'>
+      <a mat-list-item routerLink='/createBill' *ngIf='userIsAuthenticated' (click)='onClose()'>
+        <mat-icon>library_add</mat-icon>
+        <span class='nav-caption'>New Invoice</span>
+      </a>
+      <a mat-list-item routerLink='/viewBills' *ngIf='userIsAuthenticated' (click)='onClose()'>
+        <mat-icon>pageview</mat-icon>
+        <span class='nav-caption'>View Invoice</span>
+      </a>
+    </div>
+  </div>
+
+  <div mat-list class='mat-list-primary-menu' *ngIf='userIsAuthenticated'>
+    <span fxLayout (click)='hideSubMenu(2)'>
+      <span>Client Management</span>
+      <span class="example-fill-remaining-space"></span>
+      <span fxLayoutAlign='right'>
+        <mat-icon>keyboard_arrow_down</mat-icon>
+      </span>
+    </span>
+    <div *ngIf='clientSubMenu'>
+
+      <a mat-list-item routerLink='/addNewClient' *ngIf='userIsAuthenticated' (click)='onClose()'>
+        <mat-icon>person_add</mat-icon>
+        <span class='nav-caption'>Manage Client</span>
+      </a>
+      <a mat-list-item routerLink='/uploadClientExcel' *ngIf='userIsAuthenticated' (click)='onClose()'>
+        <mat-icon>group_add</mat-icon>
+        <span class='nav-caption'>Upload Client List</span>
+      </a>
+    </div>
+
+  </div>
+
+  <div mat-list class='mat-list-primary-menu' *ngIf='userIsAuthenticated'>
+    <span fxLayout (click)='hideSubMenu(3)'>
+      <span>Email Management</span>
+      <span class="example-fill-remaining-space"></span>
+      <span fxLayoutAlign='right'>
+        <mat-icon>keyboard_arrow_down</mat-icon>
+      </span>
+    </span>
+    <div *ngIf='emailSubMenu'>
+      <a mat-list-item routerLink='/sendEmail' *ngIf='userIsAuthenticated' (click)='onClose()'>
+        <mat-icon>email</mat-icon>
+        <span class='nav-caption'>Send Email</span>
+      </a>
+      <a mat-list-item routerLink='/viewEmail' *ngIf='userIsAuthenticated' (click)='onClose()'>
+        <mat-icon>view_week</mat-icon>
+        <span class='nav-caption'>View Email</span>
+      </a>
+    </div>
+
+  </div>
+
+  <div mat-list class='mat-list-primary-menu' *ngIf='userIsAuthenticated'>
+    <span fxLayout (click)='hideSubMenu(4)'>
+      <span>SMS Management</span>
+      <span class="example-fill-remaining-space"></span>
+      <span fxLayoutAlign='right'>
+        <mat-icon>keyboard_arrow_down</mat-icon>
+      </span>
+    </span>
+    <div *ngIf='smsSubMenu'>
+      <a mat-list-item routerLink='/sendSMS' *ngIf='userIsAuthenticated' (click)='onClose()'>
+        <mat-icon>sms</mat-icon>
+        <span class='nav-caption'>Send SMS</span>
+      </a>
+      <a mat-list-item routerLink='/viewSMS' *ngIf='userIsAuthenticated' (click)='onClose()'>
+        <mat-icon>chrome_reader_mode</mat-icon>
+        <span class='nav-caption'>View SMS</span>
+      </a>
+    </div>
+  </div>
+
+  <div mat-list class='mat-list-primary-menu' *ngIf='userIsAuthenticated'>
+    <span fxLayout (click)='hideSubMenu(5)'>
+      <span>My Account</span>
+      <span class="example-fill-remaining-space"></span>
+      <span fxLayoutAlign='right'>
+        <mat-icon>keyboard_arrow_down</mat-icon>
+      </span>
+    </span>
+
+    <div *ngIf='myAccountSubMenu'>
+      <a mat-list-item routerLink='/viewCompanyProfile' *ngIf='userIsAuthenticated' (click)='onClose()'>
+        <mat-icon>account_circle</mat-icon>
+        <span class='nav-caption'>Company Profile</span>
+      </a>
+      <a mat-list-item routerLink='/changePassword' *ngIf='userIsAuthenticated' (click)='onClose()'>
+        <mat-icon>autorenew</mat-icon>
+        <span class='nav-caption'>Change Password</span>
+      </a>
+      <mat-list-item *ngIf='userIsAuthenticated'>
         <button mat-icon-button (click)='onLogout()'>
-            <mat-icon>eject</mat-icon>
-            <span class='nav-caption'>Logout</span>
+          <mat-icon>eject</mat-icon>
+          <span class='nav-caption'>Logout</span>
         </button>
-    </mat-list-item>
+      </mat-list-item>
+    </div>
+  </div>
 </mat-nav-list>

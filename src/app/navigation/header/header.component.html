@@ -7,29 +7,31 @@
   <div>
     <a routerLink='/'>Logo</a>
   </div>
-  <div fxFlex fxLayout fxLayoutAlign='flex-end' fxLayoutGap='10px' fxHide.xs>
-    <a mat-button routerLink='/'>Home</a>
-    <button mat-button [matMenuTriggerFor]="invoiceMenu">Invoice Management</button>
+  <div fxFlex fxLayout fxLayoutAlign='flex-end' fxLayoutGap='7px' fxHide.xs>
+    <a mat-button routerLink='/login' *ngIf='!userIsAuthenticated'>Login</a>
+    <a mat-button routerLink='/signup' *ngIf='!userIsAuthenticated'>Signup</a>
+    <a mat-button routerLink='/' *ngIf='userIsAuthenticated'>Home</a>
+    <button mat-button [matMenuTriggerFor]="invoiceMenu" *ngIf='userIsAuthenticated'>Invoice Management</button>
     <mat-menu #invoiceMenu="matMenu" yPosition="below">
       <a routerLink='/createBill' mat-menu-item>New Invoice</a>
       <a routerLink='/viewBills' mat-menu-item>View Invoices</a>
     </mat-menu>
-    <button mat-button [matMenuTriggerFor]="emailMenu">Email Management</button>
+    <button mat-button [matMenuTriggerFor]="emailMenu" *ngIf='userIsAuthenticated'>Email Management</button>
     <mat-menu #emailMenu="matMenu" yPosition="below">
       <a routerLink='/sendEmail' mat-menu-item>Send Email</a>
       <a routerLink='/viewEmail' mat-menu-item>View Email</a>
     </mat-menu>
-    <button mat-button [matMenuTriggerFor]="smsMenu">SMS Management</button>
+    <button mat-button [matMenuTriggerFor]="smsMenu" *ngIf='userIsAuthenticated'>SMS Management</button>
     <mat-menu #smsMenu="matMenu" yPosition="below">
       <a routerLink='/sendSMS' mat-menu-item>Send SMS</a>
       <a routerLink='/viewSMS' mat-menu-item>View SMS</a>
     </mat-menu>
-    <button mat-button [matMenuTriggerFor]="clientMgmt">Client Management</button>
+    <button mat-button [matMenuTriggerFor]="clientMgmt" *ngIf='userIsAuthenticated'>Client Management</button>
     <mat-menu #clientMgmt="matMenu" yPosition="below">
       <a routerLink='/addNewClient' mat-menu-item>Manage Client</a>
       <a routerLink='/uploadClientExcel' mat-menu-item>Upload Client Excel</a>
     </mat-menu>
-    <button mat-button [matMenuTriggerFor]="myAccount">My Account</button>
+    <button mat-button [matMenuTriggerFor]="myAccount" *ngIf='userIsAuthenticated'>My Account</button>
     <mat-menu #myAccount="matMenu" yPosition="below">
       <a routerLink='/viewCompanyProfile' mat-menu-item>Company Profile</a>
       <a routerLink='/changePassword' mat-menu-item>Change Password</a>

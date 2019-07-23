@@ -14,6 +14,12 @@ export class SidenavComponent implements OnInit, OnDestroy {
   private authListnerSub: Subscription;
   constructor(private authService: AuthService) { }
 
+  invoiceSubMenu = false;
+  emailSubMenu = false;
+  smsSubMenu = false;
+  clientSubMenu = false;
+  myAccountSubMenu = false;
+
   ngOnInit() {
     this.userIsAuthenticated = this.authService.getIsAuth();
     this.authListnerSub = this.authService.getAuthStatusListener()
@@ -33,5 +39,16 @@ export class SidenavComponent implements OnInit, OnDestroy {
   }
   ngOnDestroy() {
     this.authListnerSub.unsubscribe();
+  }
+
+  hideSubMenu(menuItem: number) {
+    console.log(menuItem);
+    switch(menuItem) {
+      case 1 : this.invoiceSubMenu = !this.invoiceSubMenu; break;
+      case 2 : this.clientSubMenu = !this.clientSubMenu;break;
+      case 3: this.emailSubMenu = !this.emailSubMenu;break;
+      case 4: this.smsSubMenu = !this.smsSubMenu;break;
+      case 5: this.myAccountSubMenu = !this.myAccountSubMenu;break;
+    }
   }
 }
