@@ -28,6 +28,8 @@ import { SmsHistoryComponent } from './sms/sms-history/sms-history.component';
 import { ViewPendingListComponent } from './email/view-pending-list/view-pending-list.component';
 import { EmailFilterPipe } from './email/email-filter.pipe';
 import { UploadBulkClientComponent } from './client-store/upload-bulk-client/upload-bulk-client.component';
+import { DashboardComponent } from './app-start/dashboard/dashboard.component';
+import { ViewClientsComponent } from './client-store/view-clients/view-clients.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +52,9 @@ import { UploadBulkClientComponent } from './client-store/upload-bulk-client/upl
     SmsHistoryComponent,
     ViewPendingListComponent,
     EmailFilterPipe,
-    UploadBulkClientComponent
+    UploadBulkClientComponent,
+    DashboardComponent,
+    ViewClientsComponent
   ],
   imports: [
     BrowserModule,

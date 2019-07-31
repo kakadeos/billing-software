@@ -8,9 +8,11 @@
     <a routerLink='/'>Logo</a>
   </div>
   <div fxFlex fxLayout fxLayoutAlign='flex-end' fxLayoutGap='7px' fxHide.xs>
+    <a mat-button routerLink='/' *ngIf='!userIsAuthenticated'>Home</a>
     <a mat-button routerLink='/login' *ngIf='!userIsAuthenticated'>Login</a>
     <a mat-button routerLink='/signup' *ngIf='!userIsAuthenticated'>Signup</a>
-    <a mat-button routerLink='/' *ngIf='userIsAuthenticated'>Home</a>
+
+    <a mat-button routerLink='/dashboard' *ngIf='userIsAuthenticated'>Dashboard</a>
     <button mat-button [matMenuTriggerFor]="invoiceMenu" *ngIf='userIsAuthenticated'>Invoice Management</button>
     <mat-menu #invoiceMenu="matMenu" yPosition="below">
       <a routerLink='/createBill' mat-menu-item>New Invoice</a>
@@ -28,7 +30,8 @@
     </mat-menu>
     <button mat-button [matMenuTriggerFor]="clientMgmt" *ngIf='userIsAuthenticated'>Client Management</button>
     <mat-menu #clientMgmt="matMenu" yPosition="below">
-      <a routerLink='/addNewClient' mat-menu-item>Manage Client</a>
+      <a routerLink='/addNewClient' mat-menu-item>Add New Client</a>
+      <a routerLink='/viewClients' mat-menu-item>View Clients</a>
       <a routerLink='/uploadClientExcel' mat-menu-item>Upload Client Excel</a>
     </mat-menu>
     <button mat-button [matMenuTriggerFor]="myAccount" *ngIf='userIsAuthenticated'>My Account</button>

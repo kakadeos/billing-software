@@ -1,0 +1,81 @@
+
+<div fxLayoutAlign='center center'  *ngIf="isLoading">
+    <mat-spinner></mat-spinner>
+  </div>
+  <div fxLayout='row'>
+    <br>
+  </div>
+  <div fxLayoutAlign='center center'  *ngIf="dataSource.data.length <= 0 && !isLoading">
+    <p>Nothing to display</p>
+  </div>
+  <div fxLayoutAlign='center center'  *ngIf="dataSource.data.length > 0 && !isLoading">
+    <mat-form-field fxFlex='40%'>
+      <input matInput type="text" (keyup)='doFilter($event.target.value)' placeholder="Search for Client">
+    </mat-form-field>
+  </div>
+  <div fxLayout='row'>
+      <br>
+  </div>
+  <div class="example-container mat-elevation-z1" >
+      <mat-table [dataSource]='dataSource' matSort>
+          <ng-container matColumnDef='CompanyName'>
+              <mat-header-cell mat-sort-header *matHeaderCellDef >Client Name</mat-header-cell>
+              <mat-cell *matCellDef='let element'>
+                  <span class="mobile-label">Client Name : </span>
+                {{element.ClientCompanyName}}
+                </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef='GSTN'>
+              <mat-header-cell mat-sort-header *matHeaderCellDef >GSTN</mat-header-cell>
+              <mat-cell *matCellDef='let element'>
+                  <span class="mobile-label">GSTN : </span>
+                {{element.ClientCompanyGSTN}}
+                </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef='Address'>
+              <mat-header-cell mat-sort-header *matHeaderCellDef >Address</mat-header-cell>
+              <mat-cell *matCellDef='let element'>
+                  <span class="mobile-label">Address </span>
+                {{element.ClientCompanyAddressInitial}}
+                , {{element.ClientCompanyAddressPart2}}
+                </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef='CompanyCity'>
+              <mat-header-cell mat-sort-header *matHeaderCellDef >City</mat-header-cell>
+              <mat-cell *matCellDef='let element'>
+                  <span class="mobile-label">City : </span>
+                {{element.ClientCompanyCity}}
+                </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef='CompanyState'>
+              <mat-header-cell mat-sort-header *matHeaderCellDef >State</mat-header-cell>
+              <mat-cell *matCellDef='let element'>
+                  <span class="mobile-label">State : </span>
+                {{element.ClientCompanyState}}
+                </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef='CompanyCountry'>
+              <mat-header-cell mat-sort-header *matHeaderCellDef >Country</mat-header-cell>
+              <mat-cell *matCellDef='let element'>
+                  <span class="mobile-label">Country : </span>
+                {{element.ClientCompanyCountry}}
+                </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef='Edit'>
+              <mat-header-cell *matHeaderCellDef >Edit Details</mat-header-cell>
+              <mat-cell *matCellDef='let element'>
+                  <a mat-button [routerLink]="['/edit',element.id]" routerLinkActive="router-link-active"  color="primary">Edit</a>
+              </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef='Delete'>
+              <mat-header-cell *matHeaderCellDef >Delete Client</mat-header-cell>
+              <mat-cell *matCellDef='let element'>
+                  <button mat-button color="warn" (click)="onDelete(element.id)">Delete</button>
+              </mat-cell>
+          </ng-container>
+          <mat-header-row *matHeaderRowDef='displayedColumns'></mat-header-row>
+          <mat-row *matRowDef='let row; columns: displayedColumns;'></mat-row>
+        </mat-table>
+  </div>
+    <mat-paginator [pageSize]="10" [pageSizeOptions]="[1, 5, 10]"></mat-paginator>
+

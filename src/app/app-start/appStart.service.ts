@@ -29,6 +29,7 @@ export class AppStartService {
       .subscribe(response => {
         this.snackBar.open(response.message, null, { duration: 3000 });
         localStorage.setItem('firstLogin', 'false');
+      this.router.navigate(['/dashboard']);
       },
         (error) => {
           this.msg = error.error.message;
