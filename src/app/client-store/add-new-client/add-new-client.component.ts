@@ -4,6 +4,7 @@ import { ClientManagementService } from '../ClientManagement.service';
 import { Client } from '../Client.module';
 import { Subscription, Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
   selector: 'app-add-new-client',
@@ -28,11 +29,16 @@ export class AddNewClientComponent implements OnInit {
   newOrEditFlag : boolean;
   filteredOptions: Observable<Client[]>;
 
-  constructor(private clientService: ClientManagementService) { }
+  constructor(private clientService: ClientManagementService, public route: ActivatedRoute,
+    public router: Router) { }
 
   @ViewChild(FormGroupDirective, {static:true}) formGroupDirective: FormGroupDirective;
 
   ngOnInit() {
+    this.clientService.getClientList();
+    this.clientSub = this.clientService.getClientUpdateListener().subscribe((clients: Client[]) => {
+      this.options = clients;
+    });
     this.newOrEditFlag = true;
     this.myControl = new FormControl();
     this.form = new FormGroup({
@@ -45,22 +51,30 @@ export class AddNewClientComponent implements OnInit {
       'CompanyPincode': new FormControl('Enter Company PinCode'),
       'CompanyGSTN': new FormControl('Enter Company GSTN')
     });
-    this.clientService.getClientList();
-    this.clientSub = this.clientService.getClientUpdateListener().subscribe((clients: Client[]) => {
-      this.options = clients;
-      this.filteredOptions = this.myControl.valueChanges
-      .pipe(
-        startWith(''),
-        map(value => value ? this._filter(value) : this.options.slice())
-      );
+    this.route.paramMap.subscribe((paramMap: ParamMap) => {
+      const clientID = paramMap.get('clientId');
+
+      if(clientID) {
+        console.log(clientID);
+        this.newOrEditFlag = false;
+        this.clientService.getClient(clientID).subscribe(client => {
+          console.log(client);
+          this.form.get('CompanyName').setValue(client.companyName);
+          this.form.get('CompanyAddressInitial').setValue(client.companyAddressInitial);
+          this.form.get('CompanyAddressPart2').setValue(client.companyAddressPart2);
+          this.form.get('CompanyCity').setValue(client.companyCity);
+          this.form.get('CompanyState').setValue(client.companyState);
+          this.form.get('CompanyCountry').setValue(client.companyCountry);
+          this.form.get('CompanyPincode').setValue(client.companyPincode);
+          this.form.get('CompanyGSTN').setValue(client.companyGSTN);
+        })
+
+      }
+      else {
+        this.newOrEditFlag = true;
+      }
     });
   }
-
-  private _filter(value: string): Client[] {
-    const filterValue = value.toLowerCase();
-    return this.options.filter(client => client.ClientCompanyName.toLowerCase().includes(filterValue));
-  }
-
 
   addOrUpdateClient() {
     if(this.newOrEditFlag == true) {
@@ -86,8 +100,8 @@ export class AddNewClientComponent implements OnInit {
     this.clientService.getClientList();
   }
 
-  getClientFields(clientname) {
-    const client: Client = this.options.find(v => v.ClientCompanyName === clientname);
+  getClientFields(clientId) {
+    const client: Client = this.options.find(v => v.id === clientId);
     if (client) {
       this.newOrEditFlag = false;
       this.form.get('CompanyName').setValue(client.ClientCompanyName);

@@ -114,4 +114,21 @@ router.post('/uploadClientExcel', checkAuth, multer({storage: storage}).single('
   res.status(200).json({message:'Data Received Successfully'});
 });
 
+router.get('/getClient/:id',checkAuth,(req,res,next)=> {
+  Client.findById({_id: req.params.id}).then(client => {
+    if(client){
+      console.log(client);
+      res.status(200).json(client);
+    } else {
+      res.status(400).json({
+        message : 'client Not Found.',
+      });
+    }
+  },
+  error => {
+    res.status(400).json({message: 'Something went wrong.', error: error});
+  });
+});
+
+
 module.exports = router;

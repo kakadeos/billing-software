@@ -97,6 +97,7 @@ export class ClientManagementService {
         updatedClients[oldClientindex] = client;
         this.clients = updatedClients;
         this.clientsUpdated.next([...this.clients]);
+        this.router.navigate(['/viewClients']);
       },
         error => {
           this.snackBar.open(error.message, null, { duration: 3000 });
@@ -104,25 +105,31 @@ export class ClientManagementService {
   }
 
   deleteClient(clientId: string) {
-    this.http.delete<{message: string}>('http://localhost:3000/api/clients/deleteClient/' + clientId)
-    .subscribe((responseData) => {
-      this.snackBar.open(responseData.message, null, {duration: 3000});
-      const updatedClients = this.clients.filter(client => client.id !== clientId);
-      this.clients = updatedClients;
-      this.clientsUpdated.next([...this.clients]);
-    },
-    error => {
-      this.snackBar.open(error.message, null, {duration: 3000});
-    });
+    this.http.delete<{ message: string }>('http://localhost:3000/api/clients/deleteClient/' + clientId)
+      .subscribe((responseData) => {
+        this.snackBar.open(responseData.message, null, { duration: 3000 });
+        const updatedClients = this.clients.filter(client => client.id !== clientId);
+        this.clients = updatedClients;
+        this.clientsUpdated.next([...this.clients]);
+      },
+        error => {
+          this.snackBar.open(error.message, null, { duration: 3000 });
+        });
   }
 
-  uploadClientList (ClientExcel: File) {
+  uploadClientList(ClientExcel: File) {
     console.log(ClientExcel);
     const clientSend = new FormData();
-    clientSend.append('ClientExcelList' ,ClientExcel);
-    this.http.post<{message: string}>('http://localhost:3000/api/clients/uploadClientExcel', clientSend)
-  .subscribe(response => {
-    this.snackBar.open(response.message, null, {duration: 3000});
-  })
-}
+    clientSend.append('ClientExcelList', ClientExcel);
+    this.http.post<{ message: string }>('http://localhost:3000/api/clients/uploadClientExcel', clientSend)
+      .subscribe(response => {
+        this.snackBar.open(response.message, null, { duration: 3000 });
+      })
+  }
+
+  getClient(clientId) {
+    return this.http.get<{id: string, companyName: string, companyAddressInitial: string, companyAddressPart2: string,
+      companyCity: string, companyPincode: string, companyState: string, companyCountry: string,
+      companyGSTN: string}>('http://localhost:3000/api/clients/getClient/' + clientId);
+  }
 }

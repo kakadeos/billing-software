@@ -1,4 +1,8 @@
 <mat-nav-list>
+    <a mat-list-item routerLink='/' *ngIf='!userIsAuthenticated' (click)='onClose()'>
+      <mat-icon>input</mat-icon>
+      <span class='nav-caption'>Home</span>
+    </a>
   <a mat-list-item routerLink='/login' *ngIf='!userIsAuthenticated' (click)='onClose()'>
     <mat-icon>input</mat-icon>
     <span class='nav-caption'>Login</span>
@@ -7,9 +11,14 @@
     <mat-icon>face</mat-icon>
     <span class='nav-caption'>Signup</span>
   </a>
+  <a mat-list class='mat-list-primary-menu' routerLink='/dashboard' *ngIf='userIsAuthenticated' (click)='onClose()'>
+    <mat-icon>dashboard</mat-icon>
+    <span class='nav-caption'>Dashboard</span>
+  </a>
   <div mat-list class='mat-list-primary-menu' *ngIf='userIsAuthenticated'>
     <span fxLayout (click)='hideSubMenu(1)'>
-      <span>Invoice Management</span>
+        <mat-icon>turned_in_not</mat-icon>
+      <span class='nav-caption'>Invoice Management</span>
       <span class="example-fill-remaining-space"></span>
       <span fxLayoutAlign='right'>
         <mat-icon>keyboard_arrow_down</mat-icon>
@@ -29,7 +38,8 @@
 
   <div mat-list class='mat-list-primary-menu' *ngIf='userIsAuthenticated'>
     <span fxLayout (click)='hideSubMenu(2)'>
-      <span>Client Management</span>
+        <mat-icon>supervised_user_circle</mat-icon>
+      <span class='nav-caption'>Client Management</span>
       <span class="example-fill-remaining-space"></span>
       <span fxLayoutAlign='right'>
         <mat-icon>keyboard_arrow_down</mat-icon>
@@ -39,8 +49,13 @@
 
       <a mat-list-item routerLink='/addNewClient' *ngIf='userIsAuthenticated' (click)='onClose()'>
         <mat-icon>person_add</mat-icon>
-        <span class='nav-caption'>Manage Client</span>
+        <span class='nav-caption'>Add New Client</span>
       </a>
+      <a mat-list-item routerLink='/addNewClient' *ngIf='userIsAuthenticated' (click)='onClose()'>
+        <mat-icon>person_add</mat-icon>
+        <span class='nav-caption'>View Client</span>
+      </a>
+
       <a mat-list-item routerLink='/uploadClientExcel' *ngIf='userIsAuthenticated' (click)='onClose()'>
         <mat-icon>group_add</mat-icon>
         <span class='nav-caption'>Upload Client List</span>
@@ -51,7 +66,8 @@
 
   <div mat-list class='mat-list-primary-menu' *ngIf='userIsAuthenticated'>
     <span fxLayout (click)='hideSubMenu(3)'>
-      <span>Email Management</span>
+        <mat-icon>contact_mail</mat-icon>
+      <span class='nav-caption'>Email Management</span>
       <span class="example-fill-remaining-space"></span>
       <span fxLayoutAlign='right'>
         <mat-icon>keyboard_arrow_down</mat-icon>
@@ -72,7 +88,8 @@
 
   <div mat-list class='mat-list-primary-menu' *ngIf='userIsAuthenticated'>
     <span fxLayout (click)='hideSubMenu(4)'>
-      <span>SMS Management</span>
+        <mat-icon>message</mat-icon>
+      <span class='nav-caption'>SMS Management</span>
       <span class="example-fill-remaining-space"></span>
       <span fxLayoutAlign='right'>
         <mat-icon>keyboard_arrow_down</mat-icon>
@@ -92,7 +109,8 @@
 
   <div mat-list class='mat-list-primary-menu' *ngIf='userIsAuthenticated'>
     <span fxLayout (click)='hideSubMenu(5)'>
-      <span>My Account</span>
+        <mat-icon>input</mat-icon>
+      <span class='nav-caption'>My Account</span>
       <span class="example-fill-remaining-space"></span>
       <span fxLayoutAlign='right'>
         <mat-icon>keyboard_arrow_down</mat-icon>
