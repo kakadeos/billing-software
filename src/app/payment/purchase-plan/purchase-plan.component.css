@@ -1,0 +1,24 @@
+mat-form-field {
+  width: 300px;
+}
+
+input[type='file'] {
+  visibility: hidden;
+  width: 1%;
+}
+
+.filePreview {
+  height: 5rem;
+  margin: 1rem 0;
+}
+
+.filePreview img {
+  height: 100%;
+}
+
+.btn-image {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}

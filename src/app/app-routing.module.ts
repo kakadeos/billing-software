@@ -18,6 +18,7 @@ import { SmsHistoryComponent } from './sms/sms-history/sms-history.component';
 import { UploadBulkClientComponent } from './client-store/upload-bulk-client/upload-bulk-client.component';
 import { DashboardComponent } from './app-start/dashboard/dashboard.component';
 import { ViewClientsComponent } from './client-store/view-clients/view-clients.component';
+import { PurchasePlanComponent } from './payment/purchase-plan/purchase-plan.component';
 
 const routes: Routes = [
   {path: '', component:AppStartComponent, canActivate: [AuthGuard]},
@@ -36,7 +37,8 @@ const routes: Routes = [
   {path: 'sendSMS', component:SmsSendComponent, canActivate: [AuthGuard]},
   {path: 'viewSMS', component:SmsHistoryComponent, canActivate: [AuthGuard]},
   {path: 'uploadClientExcel', component:UploadBulkClientComponent, canActivate:[AuthGuard]},
-  {path: 'dashboard', component: DashboardComponent, canActivate:[AuthGuard]}
+  {path: 'dashboard', component: DashboardComponent, canActivate:[AuthGuard]},
+  {path: 'purchasePlan', component: PurchasePlanComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({
