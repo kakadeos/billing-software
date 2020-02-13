@@ -13,7 +13,9 @@ const emailRoutes = require('./routes/email');
 const smsRoutes = require('./routes/sms');
 
 mongoose.set('useCreateIndex', true);
-mongoose.connect('mongodb+srv://omkar:PnLpaxxqMcBzcXwx@projectbilling-2xwu9.mongodb.net/test?retryWrites=true&w=majority', { useNewUrlParser: true }).then(
+
+
+mongoose.connect('mongodb+srv://omkar:PnLpaxxqMcBzcXwx@projectbilling-2xwu9.mongodb.net/test', { useNewUrlParser: true }).then(
   result=> {console.log('MongoDb connect Successfully')}
 ).catch(
   error => {console.log('Oops! Error occured ' + error);
